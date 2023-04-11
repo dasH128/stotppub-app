@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/presentacion/providers/sign_in_provider.dart';
+import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var type = ref.read(userType);
+
     return Scaffold(
       backgroundColor: Colors.greenAccent,
       body: SafeArea(
@@ -17,15 +23,15 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               RichText(
-                text: TextSpan(
+                text: const TextSpan(
                   children: [
-                    const TextSpan(
+                    TextSpan(
                       text: 'Hola ',
                       style: TextStyle(fontSize: 18, color: Colors.black),
                     ),
                     TextSpan(
                       text: 'USUARIO',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 22,
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
@@ -40,117 +46,21 @@ class HomeScreen extends StatelessWidget {
                 thickness: 1.5,
               ),
               const SizedBox(height: 25),
-              const ItemOptionMenu(
+              ItemOptionMenu(
                 text: 'Pedidos en curso',
-                icon: Icon(
+                icon: const Icon(
                   Icons.send_rounded,
                   size: 35,
                 ),
+                onClick: () {
+                  context.push('/orderClient');
+                },
               ),
               const SizedBox(height: 65),
-              OptionsMenuTransport(),
+              if (type == 'transportista') const OptionsMenuTransport(),
+              if (type == 'cliente') const OptionsMenuTransport(),
+              if (type == 'admin') const OptionsMenuAdmin(),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class OptionsMenuClient extends StatelessWidget {
-  const OptionsMenuClient({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Text(
-          '¡Que deseas averiguar?',
-          style: TextStyle(fontSize: 20),
-        ),
-        const SizedBox(height: 15),
-        const ItemOptionMenu(
-          text: 'Mis envios entregados',
-          icon: Icon(
-            Icons.manage_search_rounded,
-            size: 35,
-          ),
-        ),
-        const SizedBox(height: 15),
-        const ItemOptionMenu(
-          text: 'Ver reportes de incidencias',
-          icon: Icon(
-            Icons.insert_chart_outlined_rounded,
-            size: 35,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class OptionsMenuTransport extends StatelessWidget {
-  const OptionsMenuTransport({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Text(
-          '¡Que deseas averiguar?',
-          style: TextStyle(fontSize: 20),
-        ),
-        const SizedBox(height: 15),
-        const ItemOptionMenu(
-          text: 'Información de mis pedidos',
-          icon: Icon(
-            Icons.manage_search_rounded,
-            size: 35,
-          ),
-        ),
-        const SizedBox(height: 15),
-        const ItemOptionMenu(
-          text: 'Ingresar código de servicios',
-          icon: Icon(
-            Icons.send_rounded,
-            size: 35,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class ItemOptionMenu extends StatelessWidget {
-  final String text;
-  final Widget icon;
-  const ItemOptionMenu({
-    super.key,
-    required this.text,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        height: 90,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.white,
-        ),
-        child: Center(
-          child: ListTile(
-            title: Text(
-              text,
-              style: const TextStyle(fontSize: 18),
-            ),
-            leading: icon,
           ),
         ),
       ),

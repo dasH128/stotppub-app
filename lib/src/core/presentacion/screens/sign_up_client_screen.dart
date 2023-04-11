@@ -1,12 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class SignUpClientScreen extends StatelessWidget {
   const SignUpClientScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _nameController = TextEditingController();
+    TextEditingController _lastNameController = TextEditingController();
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
+    TextEditingController _addressController = TextEditingController();
+    TextEditingController _numberController = TextEditingController();
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -76,7 +84,9 @@ class SignUpClientScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   color: Colors.amber,
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push('/home');
+                  },
                   child: const SizedBox(
                     width: double.infinity,
                     child: Center(

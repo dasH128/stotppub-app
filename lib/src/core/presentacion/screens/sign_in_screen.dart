@@ -16,10 +16,10 @@ class SignInScreen extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: (viewSigIn == ViewSigIn.signIn)
-            ? LoginContainer()
+            ? const LoginContainer()
             : (viewSigIn == ViewSigIn.tutorial)
-                ? TutorialContainer()
-                : SelectedTypeOfNewUserContainer(),
+                ? const TutorialContainer()
+                : const SelectedTypeOfNewUserContainer(),
       ),
     );
   }
@@ -43,7 +43,7 @@ class SelectedTypeOfNewUserContainer extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              context.push('signUpClient');
+              context.push('/signUpClient');
             },
             child: Container(
               width: 250,
@@ -73,7 +73,9 @@ class SelectedTypeOfNewUserContainer extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              context.push('/signUpTransport');
+            },
             child: Container(
               width: 250,
               height: 250,
@@ -142,6 +144,9 @@ class LoginContainer extends ConsumerWidget {
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _passwordController = TextEditingController();
+
     return Container(
       child: Column(
         children: [
@@ -183,94 +188,182 @@ class LoginContainer extends ConsumerWidget {
             ),
             child: Column(
               children: [
-                const Text(
-                  'Iniciar sesisón',
-                  style: TextStyle(fontSize: 24),
-                ),
+                const _TitleContainer(),
                 const SizedBox(height: 25),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Usuario',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
+                _FormName(emailController: _emailController),
                 const SizedBox(height: 15),
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: 'Contraseña',
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.remove_red_eye),
-                  ),
-                ),
+                _FormPassword(passwordController: _passwordController),
                 const SizedBox(height: 15),
                 const Text(
                   'Olvide mi contraseça',
                   style: TextStyle(fontSize: 18),
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    const Text(
-                      'Recordar mis datos',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Switch(
-                      value: true,
-                      onChanged: (value) {},
-                    ),
-                  ],
-                ),
+                const _TextRemenberContainer(),
                 const SizedBox(height: 10),
-                MaterialButton(
-                  height: 48,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: Colors.amber,
-                  elevation: 80,
-                  onPressed: () {},
-                  child: const SizedBox(
-                    width: double.infinity,
-                    child: Center(
-                      child: Text(
-                        'Iniciar',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
+                _ButtonContainer(emailController: _emailController),
                 const SizedBox(height: 10),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'No tines cuenta? ',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      TextSpan(
-                        recognizer: new TapGestureRecognizer()
-                          ..onTap = () {
-                            print('CLICKKKK');
-                            ref.read(viewSigInCurrentPovider.notifier).state =
-                                ViewSigIn.selectedTypeUser;
-                          },
-                        text: 'REGISTRATE',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                const _TextRegisterContainer(),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _TextRemenberContainer extends StatelessWidget {
+  const _TextRemenberContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        const Text(
+          'Recordar mis datos',
+          style: TextStyle(fontSize: 18),
+        ),
+        Switch(
+          value: true,
+          onChanged: (value) {},
+        ),
+      ],
+    );
+  }
+}
+
+class _TextRegisterContainer extends ConsumerWidget {
+  const _TextRegisterContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          const TextSpan(
+            text: 'No tines cuenta? ',
+            style: TextStyle(fontSize: 18),
+          ),
+          TextSpan(
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                ref.read(viewSigInCurrentPovider.notifier).state =
+                    ViewSigIn.selectedTypeUser;
+              },
+            text: 'REGISTRATE',
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _ButtonContainer extends ConsumerWidget {
+  const _ButtonContainer({
+    super.key,
+    required TextEditingController emailController,
+  }) : _emailController = emailController;
+
+  final TextEditingController _emailController;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialButton(
+      height: 48,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      color: Colors.amber,
+      onPressed: () {
+        if (_emailController.text == 'admin@gmail.com') {
+          ref.read(userType.notifier).state = 'admin';
+          context.push('/home');
+        }
+        if (_emailController.text == 'transportista@gmail.com') {
+          ref.read(userType.notifier).state = 'transportista';
+          context.push('/home');
+        }
+        if (_emailController.text == 'cliente@gmail.com') {
+          ref.read(userType.notifier).state = 'cliente';
+          context.push('/home');
+        }
+      },
+      child: const SizedBox(
+        width: double.infinity,
+        child: Center(
+          child: Text(
+            'Iniciar',
+            style: TextStyle(fontSize: 18, color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _FormPassword extends StatelessWidget {
+  const _FormPassword({
+    super.key,
+    required TextEditingController passwordController,
+  }) : _passwordController = passwordController;
+
+  final TextEditingController _passwordController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      obscureText: true,
+      controller: _passwordController,
+      decoration: const InputDecoration(
+        hintText: 'Contraseña',
+        border: OutlineInputBorder(),
+        suffixIcon: Icon(Icons.remove_red_eye),
+      ),
+    );
+  }
+}
+
+class _FormName extends StatelessWidget {
+  const _FormName({
+    super.key,
+    required TextEditingController emailController,
+  }) : _emailController = emailController;
+
+  final TextEditingController _emailController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: _emailController,
+      decoration: const InputDecoration(
+        hintText: 'Usuario',
+        border: OutlineInputBorder(),
+      ),
+    );
+  }
+}
+
+class _TitleContainer extends StatelessWidget {
+  const _TitleContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      'Iniciar sesisón',
+      style: TextStyle(fontSize: 24),
     );
   }
 }
