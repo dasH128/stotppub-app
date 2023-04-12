@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../providers/register_transport_provider.dart';
 
 class RegisterTransportScreen extends StatelessWidget {
   const RegisterTransportScreen({super.key});
@@ -14,6 +17,8 @@ class RegisterTransportScreen extends StatelessWidget {
     TextEditingController _numberController = TextEditingController();
     TextEditingController _licenseNumberController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
+
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     return SafeArea(
       child: Scaffold(
         body: CustomScrollView(
@@ -23,7 +28,7 @@ class RegisterTransportScreen extends StatelessWidget {
               pinned: true,
               expandedHeight: 350,
               flexibleSpace: FlexibleSpaceBar(
-                title: const Text('Register'),
+                title: const Text('Registrar Transportista'),
                 background: Image.asset(
                   'assets/images/register_transport.jpg',
                   fit: BoxFit.cover,
@@ -36,15 +41,23 @@ class RegisterTransportScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 15),
-                    _FormName(nameController: _nameController),
-                    const SizedBox(height: 10),
-                    _FormLastName(lastNameController: _lastNameController),
-                    const SizedBox(height: 10),
-                    _FormEmail(emailController: _emailController),
-                    const SizedBox(height: 10),
-                    _FormNumber(numberController: _numberController),
-                    const SizedBox(height: 10),
-                    _FormPassword(passwordController: _passwordController),
+                    Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            _FormName(),
+                            const SizedBox(height: 10),
+                            _FormLastName(
+                                lastNameController: _lastNameController),
+                            const SizedBox(height: 10),
+                            _FormEmail(emailController: _emailController),
+                            const SizedBox(height: 10),
+                            _FormNumber(numberController: _numberController),
+                            const SizedBox(height: 10),
+                            _FormPassword(
+                                passwordController: _passwordController),
+                          ],
+                        )),
                     const SizedBox(height: 10),
                     const _ButtonRegister(),
                   ],
@@ -58,13 +71,13 @@ class RegisterTransportScreen extends StatelessWidget {
   }
 }
 
-class _ButtonRegister extends StatelessWidget {
+class _ButtonRegister extends ConsumerWidget {
   const _ButtonRegister({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialButton(
       height: 48,
       shape: RoundedRectangleBorder(
@@ -73,6 +86,8 @@ class _ButtonRegister extends StatelessWidget {
       color: Colors.amber,
       onPressed: () {
         //context.push('/home');
+        var nameController = ref.read(nameProvider);
+        print('name is ${nameController.text}');
       },
       child: const SizedBox(
         width: double.infinity,
@@ -159,32 +174,56 @@ class _FormLastName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: _lastNameController,
       decoration: const InputDecoration(
         hintText: 'Apellidos',
         border: OutlineInputBorder(),
       ),
+      validator: (value) {
+        if (value == 'raa') return 'raa';
+        return null;
+      },
     );
   }
 }
 
-class _FormName extends StatelessWidget {
-  const _FormName({
-    super.key,
-    required TextEditingController nameController,
-  }) : _nameController = nameController;
+class _FormName extends ConsumerWidget {
+  const _FormName();
 
-  final TextEditingController _nameController;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    var nameController = ref.watch(nameProvider);
+    return MyInputTextField(
+      controller: nameController,
+      text: 'Nombre',
+    );
+  }
+}
+
+class MyInputTextField extends StatelessWidget {
+  const MyInputTextField({
+    super.key,
+    required TextEditingController controller,
+    required String text,
+  })  : _controller = controller,
+        _text = text;
+
+  final TextEditingController _controller;
+  final String _text;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: _nameController,
-      decoration: const InputDecoration(
-        hintText: 'Nombre',
-        border: OutlineInputBorder(),
+    return TextFormField(
+      controller: _controller,
+      decoration: InputDecoration(
+        hintText: _text,
+        border: const OutlineInputBorder(),
       ),
+      validator: (v) {
+        print('v is $v');
+        return 'asd';
+      },
     );
   }
 }

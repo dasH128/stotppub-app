@@ -1,14 +1,13 @@
 import 'package:go_router/go_router.dart';
 import 'package:stotppub/src/core/presentacion/screens/screens.dart';
-import 'package:stotppub/src/core/presentacion/screens/show_shipment_screen.dart';
 
 final appRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/home',
   routes: [
     GoRoute(
       path: '/',
       name: 'signIn',
-      builder: (context, state) => const RegisterTransportScreen(),
+      builder: (context, state) => const SignInScreen(),
     ),
     GoRoute(
       path: '/signUpClient',
@@ -46,14 +45,24 @@ final appRouter = GoRouter(
       builder: (context, state) => const RegisterVehicleScreen(),
     ),
     GoRoute(
-      path: '/profile',
-      name: 'profile',
+      path: '/createRequest',
+      name: 'createRequest',
       builder: (context, state) => const CreateRequestScreen(),
     ),
     GoRoute(
       path: '/showShipment',
       name: 'showShipment',
       builder: (context, state) => const ShowShipmentScreen(),
+    ),
+    GoRoute(
+      path: '/profile',
+      name: 'profile',
+      builder: (context, state) => const ProfileScreen(),
+    ),
+    GoRoute(
+      path: '/route',
+      name: 'route',
+      builder: (context, state) => const RouteScreen(),
     ),
   ],
 );

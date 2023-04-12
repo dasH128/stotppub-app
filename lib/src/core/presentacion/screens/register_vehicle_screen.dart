@@ -24,7 +24,7 @@ class RegisterVehicleScreen extends StatelessWidget {
               pinned: true,
               expandedHeight: 350,
               flexibleSpace: FlexibleSpaceBar(
-                title: const Text('Register'),
+                title: const Text('Registrar Vehículo'),
                 background: Image.asset(
                   'assets/images/register_vehicle.jpeg',
                   fit: BoxFit.cover,
@@ -62,7 +62,6 @@ class RegisterVehicleScreen extends StatelessWidget {
                       // color: Colors.amberAccent,
                       child: Text('Registrar'),
                     ),
-                    
                   ],
                 ),
               ),

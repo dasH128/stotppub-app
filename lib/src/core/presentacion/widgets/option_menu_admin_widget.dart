@@ -40,11 +40,13 @@ class OptionsMenuAdmin extends StatelessWidget {
         const SizedBox(height: 15),
         ItemOptionMenu(
           text: 'Crear Solicitud',
-          icon: Icon(
+          icon: const Icon(
             Icons.archive,
             size: 35,
           ),
-          onClick: () {},
+          onClick: () {
+            context.push('/createRequest');
+          },
         ),
         const SizedBox(height: 15),
         ItemOptionMenu(
@@ -53,7 +55,9 @@ class OptionsMenuAdmin extends StatelessWidget {
             Icons.fmd_good_sharp,
             size: 35,
           ),
-          onClick: () {},
+          onClick: () {
+            context.push('/showShipment');
+          },
         ),
       ],
     );

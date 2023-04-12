@@ -12,7 +12,7 @@ class HomeScreen extends ConsumerWidget {
     var type = ref.read(userType);
 
     return Scaffold(
-      backgroundColor: Colors.greenAccent,
+      // backgroundColor: Colors.greenAccent,
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(
