@@ -22,23 +22,43 @@ class HomeScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RichText(
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Hola ',
-                      style: TextStyle(fontSize: 18, color: Colors.black),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RichText(
+                    text: const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Hola ',
+                          style: TextStyle(fontSize: 18, color: Colors.black),
+                        ),
+                        TextSpan(
+                          text: 'USUARIO',
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
                     ),
-                    TextSpan(
-                      text: 'USUARIO',
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+                  ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          context.push('/profile');
+                        },
+                        child: const Icon(Icons.person),
                       ),
-                    )
-                  ],
-                ),
+                      const SizedBox(width: 8),
+                      GestureDetector(
+                        onTap: () {},
+                        child: const Icon(Icons.logout_outlined),
+                      ),
+                    ],
+                  )
+                ],
               ),
               const SizedBox(height: 15),
               const Divider(

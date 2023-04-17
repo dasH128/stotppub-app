@@ -1,5 +1,8 @@
+export 'package:stotppub/src/core/presentacion/widgets/button_custom1_widget.dart';
+export 'package:stotppub/src/core/presentacion/widgets/text_option_custom1_widget.dart';
+export 'package:stotppub/src/core/presentacion/widgets/text_switch_custom1_widget.dart';
+export 'package:stotppub/src/core/presentacion/widgets/text_form_field_custom1_widget.dart';
 export 'package:stotppub/src/core/presentacion/widgets/item_order_widget.dart';
-
 export 'package:stotppub/src/core/presentacion/widgets/item_option_menu_widget.dart';
 export 'package:stotppub/src/core/presentacion/widgets/option_menu_admin_widget.dart';
 export 'package:stotppub/src/core/presentacion/widgets/option_menu_client_widget.dart';

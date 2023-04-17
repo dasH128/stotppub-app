@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
+import '../../data/entity/entity.dart';
 import '../providers/register_transport_provider.dart';
 
 class RegisterTransportScreen extends StatelessWidget {
@@ -9,15 +10,6 @@ class RegisterTransportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _nameController = TextEditingController();
-    TextEditingController _lastNameController = TextEditingController();
-    TextEditingController _emailController = TextEditingController();
-    TextEditingController _rucController = TextEditingController();
-    TextEditingController _addressController = TextEditingController();
-    TextEditingController _numberController = TextEditingController();
-    TextEditingController _licenseNumberController = TextEditingController();
-    TextEditingController _passwordController = TextEditingController();
-
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     return SafeArea(
       child: Scaffold(
@@ -42,24 +34,32 @@ class RegisterTransportScreen extends StatelessWidget {
                   children: [
                     const SizedBox(height: 15),
                     Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            _FormName(),
-                            const SizedBox(height: 10),
-                            _FormLastName(
-                                lastNameController: _lastNameController),
-                            const SizedBox(height: 10),
-                            _FormEmail(emailController: _emailController),
-                            const SizedBox(height: 10),
-                            _FormNumber(numberController: _numberController),
-                            const SizedBox(height: 10),
-                            _FormPassword(
-                                passwordController: _passwordController),
-                          ],
-                        )),
+                      key: _formKey,
+                      child: Column(
+                        children: const [
+                          _FormName(),
+                          SizedBox(height: 10),
+                          _FormLastName(),
+                          SizedBox(height: 10),
+                          _FormRuc(),
+                          SizedBox(height: 10),
+                          _FormAddress(),
+                          SizedBox(height: 10),
+                          _FormNumber(),
+                          SizedBox(height: 10),
+                          _FormLicenseNumber(),
+                          SizedBox(height: 10),
+                          _FormTypeLicense(),
+                          SizedBox(height: 10),
+                          _FormEmail(),
+                          SizedBox(height: 10),
+                          _FormPassword(),
+                        ],
+                      ),
+                    ),
                     const SizedBox(height: 10),
                     const _ButtonRegister(),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -71,118 +71,91 @@ class RegisterTransportScreen extends StatelessWidget {
   }
 }
 
-class _ButtonRegister extends ConsumerWidget {
-  const _ButtonRegister({
-    super.key,
-  });
+class _FormPassword extends ConsumerWidget {
+  const _FormPassword();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialButton(
-      height: 48,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      color: Colors.amber,
-      onPressed: () {
-        //context.push('/home');
-        var nameController = ref.read(nameProvider);
-        print('name is ${nameController.text}');
+    RegisterTransportFormNotifier notifierForm =
+        ref.watch(registerTransportStateNotifierProvider.notifier);
+
+    return TextFormFieldCustom1(
+      prefixIcon: const Icon(Icons.password),
+      hint: 'Ingrese Password',
+      onChanged: (value) {
+        notifierForm.setPassword(value);
       },
-      child: const SizedBox(
-        width: double.infinity,
-        child: Center(
-          child: Text(
-            'Registrar',
-            style: TextStyle(fontSize: 18, color: Colors.white),
-          ),
-        ),
-      ),
     );
   }
 }
 
-class _FormPassword extends StatelessWidget {
-  const _FormPassword({
-    super.key,
-    required TextEditingController passwordController,
-  }) : _passwordController = passwordController;
-
-  final TextEditingController _passwordController;
+class _FormNumber extends ConsumerWidget {
+  const _FormNumber();
 
   @override
-  Widget build(BuildContext context) {
-    return TextField(
-      obscureText: true,
-      controller: _passwordController,
-      decoration: const InputDecoration(
-        hintText: 'Contraseña',
-        border: OutlineInputBorder(),
-        suffixIcon: Icon(Icons.remove_red_eye),
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    RegisterTransportFormNotifier notifierForm =
+        ref.watch(registerTransportStateNotifierProvider.notifier);
+
+    return TextFormFieldCustom1(
+      prefixIcon: const Icon(Icons.phone),
+      hint: 'Ingrese Número',
+      onChanged: (value) {
+        notifierForm.setNumber(value);
+      },
     );
   }
 }
 
-class _FormNumber extends StatelessWidget {
-  const _FormNumber({
-    super.key,
-    required TextEditingController numberController,
-  }) : _numberController = numberController;
-
-  final TextEditingController _numberController;
+class _FormEmail extends ConsumerWidget {
+  const _FormEmail();
 
   @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: _numberController,
-      decoration: const InputDecoration(
-        hintText: 'Teléfono',
-        border: OutlineInputBorder(),
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    RegisterTransportFormNotifier notifierForm =
+        ref.watch(registerTransportStateNotifierProvider.notifier);
+
+    return TextFormFieldCustom1(
+      prefixIcon: const Icon(Icons.email),
+      hint: 'Ingrese Email',
+      onChanged: (value) {
+        notifierForm.setEmail(value);
+      },
     );
   }
 }
 
-class _FormEmail extends StatelessWidget {
-  const _FormEmail({
-    super.key,
-    required TextEditingController emailController,
-  }) : _emailController = emailController;
-
-  final TextEditingController _emailController;
+class _FormRuc extends ConsumerWidget {
+  const _FormRuc();
 
   @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: _emailController,
-      decoration: const InputDecoration(
-        hintText: 'Correo',
-        border: OutlineInputBorder(),
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    RegisterTransportFormNotifier notifierForm =
+        ref.watch(registerTransportStateNotifierProvider.notifier);
+
+    return TextFormFieldCustom1(
+      prefixIcon: const Icon(Icons.reduce_capacity),
+      hint: 'Ingrese Ruc',
+      onChanged: (value) {
+        notifierForm.setRuc(value);
+      },
     );
   }
 }
 
-class _FormLastName extends StatelessWidget {
-  const _FormLastName({
-    super.key,
-    required TextEditingController lastNameController,
-  }) : _lastNameController = lastNameController;
-
-  final TextEditingController _lastNameController;
+class _FormLastName extends ConsumerWidget {
+  const _FormLastName();
 
   @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: _lastNameController,
-      decoration: const InputDecoration(
-        hintText: 'Apellidos',
-        border: OutlineInputBorder(),
-      ),
-      validator: (value) {
-        if (value == 'raa') return 'raa';
-        return null;
+  Widget build(BuildContext context, WidgetRef ref) {
+    RegisterTransportFormNotifier notifierForm =
+        ref.watch(registerTransportStateNotifierProvider.notifier);
+
+    return TextFormFieldCustom1(
+      prefixIcon: const Icon(Icons.person),
+      hint: 'Ingrese Apellido',
+      onChanged: (value) {
+        notifierForm.setLastName(value);
       },
     );
   }
@@ -193,36 +166,93 @@ class _FormName extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var nameController = ref.watch(nameProvider);
-    return MyInputTextField(
-      controller: nameController,
-      text: 'Nombre',
+    RegisterTransportFormNotifier notifierForm =
+        ref.watch(registerTransportStateNotifierProvider.notifier);
+
+    return TextFormFieldCustom1(
+      prefixIcon: const Icon(Icons.person),
+      hint: 'Ingrese Nombre',
+      onChanged: (value) {
+        notifierForm.setName(value);
+      },
     );
   }
 }
 
-class MyInputTextField extends StatelessWidget {
-  const MyInputTextField({
-    super.key,
-    required TextEditingController controller,
-    required String text,
-  })  : _controller = controller,
-        _text = text;
-
-  final TextEditingController _controller;
-  final String _text;
+class _FormAddress extends ConsumerWidget {
+  const _FormAddress();
 
   @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: _controller,
-      decoration: InputDecoration(
-        hintText: _text,
-        border: const OutlineInputBorder(),
-      ),
-      validator: (v) {
-        print('v is $v');
-        return 'asd';
+  Widget build(BuildContext context, WidgetRef ref) {
+    RegisterTransportFormNotifier notifierForm =
+        ref.watch(registerTransportStateNotifierProvider.notifier);
+
+    return TextFormFieldCustom1(
+      prefixIcon: const Icon(Icons.directions),
+      hint: 'Ingrese Dirección',
+      onChanged: (value) {
+        notifierForm.setAddress(value);
+      },
+    );
+  }
+}
+
+class _FormLicenseNumber extends ConsumerWidget {
+  const _FormLicenseNumber();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    RegisterTransportFormNotifier notifierForm =
+        ref.watch(registerTransportStateNotifierProvider.notifier);
+
+    return TextFormFieldCustom1(
+      prefixIcon: const Icon(Icons.add_card_outlined),
+      hint: 'Ingrese Número de licensia',
+      onChanged: (value) {
+        notifierForm.setLicenseNumber(value);
+      },
+    );
+  }
+}
+
+class _FormTypeLicense extends ConsumerWidget {
+  const _FormTypeLicense();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    RegisterTransportFormNotifier notifierForm =
+        ref.watch(registerTransportStateNotifierProvider.notifier);
+    const data = ['A I', 'A II', 'A III', 'B I', 'B II', 'B III'];
+    var category =
+        ref.watch(registerTransportStateNotifierProvider).categoryLicense;
+
+    return TextOptionCustom1Widget(
+      prefixIcon: const Icon(Icons.type_specimen),
+      text: 'Ingrese Categoría de licensia',
+      value: category,
+      titleOption: 'Eliga una opcion:',
+      valueOption: data,
+      onChanged: (value) {
+        if (value == null) return;
+        notifierForm.setCategoryLicense(value);
+        context.pop();
+      },
+    );
+  }
+}
+
+class _ButtonRegister extends ConsumerWidget {
+  const _ButtonRegister({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ButtonCustom1Widget(
+      text: 'Registrar',
+      onPressed: () {
+        RegisterTransportFormEntity transport = ref.read(registerTransportStateNotifierProvider.notifier).state;
+        print(transport.name);
       },
     );
   }
