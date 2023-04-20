@@ -1,6 +1,7 @@
+export 'package:stotppub/src/core/presentacion/screens/incident_screen.dart';
+export 'package:stotppub/src/core/presentacion/screens/incident_detail_screen.dart';
 export 'package:stotppub/src/core/presentacion/screens/route_screen.dart';
 export 'package:stotppub/src/core/presentacion/screens/show_shipment_screen.dart';
-
 export 'package:stotppub/src/core/presentacion/screens/home_screen.dart';
 export 'package:stotppub/src/core/presentacion/screens/sign_in_screen.dart';
 export 'package:stotppub/src/core/presentacion/screens/sign_up_client_screen.dart';

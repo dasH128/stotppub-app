@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MyAppTheme {
+  var color = Colors.yellow;
+
   static ThemeData theme = ThemeData(
     useMaterial3: true,
     primarySwatch: Colors.green,
@@ -9,6 +11,6 @@ class MyAppTheme {
       color: Colors.green,
       centerTitle: false,
     ),
-    // scaffoldBackgroundColor: Colors.greenAccent,
+    scaffoldBackgroundColor: Colors.deepPurple[50],
   );
 }

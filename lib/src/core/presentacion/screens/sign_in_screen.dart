@@ -3,23 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:localstorage/localstorage.dart';
+import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
 import '../providers/sign_in_provider.dart';
 
 class SignInScreen extends ConsumerWidget {
-  const SignInScreen({super.key});
+  final storage = new LocalStorage('my_data.json');
+
+  SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ViewSigIn viewSigIn = ref.watch(viewSigInCurrentPovider);
     print('view $viewSigIn');
+
     return Scaffold(
       body: SafeArea(
-        child: (viewSigIn == ViewSigIn.signIn)
-            ? const LoginContainer()
-            : (viewSigIn == ViewSigIn.tutorial)
-                ? const TutorialContainer()
-                : const SelectedTypeOfNewUserContainer(),
+        child: FutureBuilder(
+            future: storage.ready,
+            builder: (BuildContextcontext, AsyncSnapshot snapshot) {
+              if (snapshot.data == true) {
+                bool isLogged = storage.getItem('isLogged') ?? false;
+                print('esta logiuueado $isLogged');
+
+                return (viewSigIn == ViewSigIn.signIn)
+                    ? const LoginContainer()
+                    : (viewSigIn == ViewSigIn.tutorial)
+                        ? const TutorialContainer()
+                        : const SelectedTypeOfNewUserContainer();
+              } else {
+                return CircularProgressIndicator();
+              }
+            }),
       ),
     );
   }
@@ -213,13 +229,14 @@ class LoginContainer extends ConsumerWidget {
   }
 }
 
-class _TextRemenberContainer extends StatelessWidget {
+class _TextRemenberContainer extends ConsumerWidget {
   const _TextRemenberContainer({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool switchValue = ref.watch(rememberUserPovider);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -228,8 +245,10 @@ class _TextRemenberContainer extends StatelessWidget {
           style: TextStyle(fontSize: 18),
         ),
         Switch(
-          value: true,
-          onChanged: (value) {},
+          value: switchValue,
+          onChanged: (value) {
+            ref.read(rememberUserPovider.notifier).state = value;
+          },
         ),
       ],
     );
@@ -279,35 +298,29 @@ class _ButtonContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialButton(
-      height: 48,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      color: Colors.amber,
-      onPressed: () {
+    return ButtonCustom1Widget(
+      text: 'INICIAR',
+      onPressed: () async {
+        final storage = new LocalStorage('my_data.json');
         if (_emailController.text == 'admin@gmail.com') {
           ref.read(userType.notifier).state = 'admin';
+          await storage.setItem('userType', 'admin');
           context.push('/home');
         }
         if (_emailController.text == 'transportista@gmail.com') {
           ref.read(userType.notifier).state = 'transportista';
+          await storage.setItem('userType', 'transportista');
           context.push('/home');
         }
         if (_emailController.text == 'cliente@gmail.com') {
           ref.read(userType.notifier).state = 'cliente';
+          await storage.setItem('userType', 'cliente');
           context.push('/home');
         }
+
+        // await storage.setItem('isLogged', true);
+        // context.push('/home');
       },
-      child: const SizedBox(
-        width: double.infinity,
-        child: Center(
-          child: Text(
-            'Iniciar',
-            style: TextStyle(fontSize: 18, color: Colors.white),
-          ),
-        ),
-      ),
     );
   }
 }

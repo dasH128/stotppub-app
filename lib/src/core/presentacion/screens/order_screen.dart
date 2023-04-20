@@ -4,7 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
 class OrderScreen extends StatefulWidget {
-  const OrderScreen({super.key});
+  final int? initView;
+  const OrderScreen({super.key, this.initView = 0});
 
   @override
   State<OrderScreen> createState() => _OrderScreenState();
@@ -19,7 +20,12 @@ class _OrderScreenState extends State<OrderScreen>
   void initState() {
     super.initState();
 
-    _controller = TabController(length: 2, vsync: this);
+    print('da ${widget.initView}');
+    _controller = TabController(
+      initialIndex: widget.initView!,
+      length: 2,
+      vsync: this,
+    );
   }
 
   @override
@@ -57,7 +63,16 @@ class TabView01 extends ConsumerWidget {
       child: ListView.builder(
         itemCount: 3,
         itemBuilder: (BuildContext context, int index) {
-          return ItemOrderWidget();
+          return const ItemOrderInProcessWidget(
+            orderDate: 'Lunes 17 / 01 / 2023',
+            product: 'PALTAS',
+            code: 'XXXXX',
+            state: 'En camino',
+            numberOrder: 'xxxxxxxxxxx',
+            estimatedDate: '02/12/2023',
+            address: 'Av. xxxxxxxxxxxxx',
+            nameTransport: 'Pedro Gonzales',
+          );
         },
       ),
     );
@@ -75,7 +90,19 @@ class TabView02 extends StatelessWidget {
       child: ListView.builder(
         itemCount: 3,
         itemBuilder: (BuildContext context, int index) {
-          return ItemOrderWidget();
+          return const ItemOrderDeliveredWidget(
+            orderDate: 'Lunes 17 / 01 / 2023',
+            product: 'PALTAS',
+            code: 'XXXXX',
+            state: 'En camino',
+            numberOrder: 'xxxxxxxxxxx',
+            estimatedDate: '02/12/2023',
+            address: 'Av. xxxxxxxxxxxxx',
+            nameClient: 'Valeria Nathaly Collazo',
+            nameTransport: 'Pedro Gonzales',
+            propertyCard: 'KDF -123',
+            typePerishable: 'Fruta',
+          );
         },
       ),
     );

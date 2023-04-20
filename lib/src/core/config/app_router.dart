@@ -2,12 +2,12 @@ import 'package:go_router/go_router.dart';
 import 'package:stotppub/src/core/presentacion/screens/screens.dart';
 
 final appRouter = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
       name: 'signIn',
-      builder: (context, state) => const SignInScreen(),
+      builder: (context, state) => SignInScreen(),
     ),
     GoRoute(
       path: '/signUpClient',
@@ -27,12 +27,24 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/orderClient',
       name: 'orderClient',
-      builder: (context, state) => const OrderScreen(),
+      builder: (context, state) => OrderScreen(
+        initView: (state.extra as int),
+      ),
     ),
     GoRoute(
       path: '/orderHistoryClient',
       name: 'orderHistoryClient',
       builder: (context, state) => const OrderHistoryScreen(),
+    ),
+    GoRoute(
+      path: '/incident',
+      name: 'incident',
+      builder: (context, state) => const IncidentScreen(),
+    ),
+    GoRoute(
+      path: '/incidentDetail',
+      name: 'incidentDetail',
+      builder: (context, state) => const IncidentDetailScreen(),
     ),
     GoRoute(
       path: '/registerTransport',

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +11,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var type = ref.read(userType);
-
+    print('type home $type');
     return Scaffold(
       // backgroundColor: Colors.greenAccent,
       body: SafeArea(
@@ -53,7 +54,14 @@ class HomeScreen extends ConsumerWidget {
                       ),
                       const SizedBox(width: 8),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          showCupertinoDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialogLogoutWidget();
+                              });
+                        },
                         child: const Icon(Icons.logout_outlined),
                       ),
                     ],
@@ -73,12 +81,13 @@ class HomeScreen extends ConsumerWidget {
                   size: 35,
                 ),
                 onClick: () {
-                  context.push('/orderClient');
+                  context.push('/orderClient', extra: 0);
+                  // context.goNamed('orderClient', params: {'initView': "1"});
                 },
               ),
               const SizedBox(height: 65),
               if (type == 'transportista') const OptionsMenuTransport(),
-              if (type == 'cliente') const OptionsMenuTransport(),
+              if (type == 'cliente') const OptionsMenuClient(),
               if (type == 'admin') const OptionsMenuAdmin(),
             ],
           ),

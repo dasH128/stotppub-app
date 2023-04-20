@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
 
-class ItemOrderWidget extends StatelessWidget {
-  const ItemOrderWidget({
+class ItemOrderInProcessWidget extends StatelessWidget {
+  final String product;
+  final String code;
+  final String state;
+  final String numberOrder;
+  final String orderDate;
+  final String estimatedDate;
+  final String address;
+  final String nameTransport;
+  const ItemOrderInProcessWidget({
     super.key,
+    required this.product,
+    required this.code,
+    required this.state,
+    required this.numberOrder,
+    required this.orderDate,
+    required this.estimatedDate,
+    required this.address,
+    required this.nameTransport,
   });
 
   @override
@@ -21,7 +37,7 @@ class ItemOrderWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Lunes 17 / 01 / 2023'),
+                Text(orderDate),
                 GestureDetector(
                   onTap: () {},
                   child: const Icon(Icons.share),
@@ -31,8 +47,8 @@ class ItemOrderWidget extends StatelessWidget {
             const SizedBox(height: 5),
             const Divider(height: 2),
             const SizedBox(height: 10),
-            const Text('PALTAS - xxxxxx '),
-            const Text('En sucursal'),
+            Text('$product - $code '),
+            Text(state),
           ],
         ),
         children: [
@@ -45,33 +61,33 @@ class ItemOrderWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
-                      children: const [
-                        Text('Nº de envio:'),
-                        Text('XXXXXXXXXXXXXX'),
+                      children: [
+                        const Text('Nº de envio:'),
+                        Text(numberOrder),
                       ],
                     ),
-                    Icon(Icons.copy),
+                    const Icon(Icons.copy),
                   ],
                 ),
-                Text('Fecha de entrega estimada:'),
-                Text('02/12/2023'),
+                const Text('Fecha de entrega estimada:'),
+                Text(estimatedDate),
                 const SizedBox(height: 10),
-                Text('Conductor asigando'),
-                Text('Pedro Gonzales'),
+                const Text('Conductor asigando'),
+                Text(nameTransport),
                 const SizedBox(height: 10),
-                Text('Lugar de destino'),
-                Text('Av. xxxxxxxxxxxxx'),
+                const Text('Lugar de destino'),
+                Text(address),
                 const SizedBox(height: 10),
                 Center(
                   child: OutlinedButton(
                     onPressed: () {},
-                    child: Text('VER PERFIL DE INCIDENCIAS'),
+                    child: const Text('VER PERFIL DE INCIDENCIAS'),
                   ),
                 ),
                 Center(
                   child: OutlinedButton(
                     onPressed: () {},
-                    child: Text('VER RECORRIDO DEL ENVIO'),
+                    child: const Text('VER RECORRIDO DEL ENVIO'),
                   ),
                 ),
               ],

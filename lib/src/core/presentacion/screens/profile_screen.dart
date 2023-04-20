@@ -7,7 +7,18 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(),
+        child: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(),
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'HOLA'),
+                )
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

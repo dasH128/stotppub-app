@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
 class OptionsMenuClient extends StatelessWidget {
@@ -21,7 +22,9 @@ class OptionsMenuClient extends StatelessWidget {
             Icons.manage_search_rounded,
             size: 35,
           ),
-          onClick: () {},
+          onClick: () {
+            context.push('/orderClient', extra: 1);
+          },
         ),
         const SizedBox(height: 15),
         ItemOptionMenu(
