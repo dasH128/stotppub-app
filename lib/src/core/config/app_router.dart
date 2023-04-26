@@ -6,6 +6,11 @@ final appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
+      name: 'splash',
+      builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: '/signIn',
       name: 'signIn',
       builder: (context, state) => SignInScreen(),
     ),
@@ -20,9 +25,19 @@ final appRouter = GoRouter(
       builder: (context, state) => const SignUpTransportScreen(),
     ),
     GoRoute(
-      path: '/home',
-      name: 'home',
-      builder: (context, state) => const HomeScreen(),
+      path: '/homeClient',
+      name: 'homeClient',
+      builder: (context, state) => const HomeClientScreen(),
+    ),
+    GoRoute(
+      path: '/homeAdmin',
+      name: 'homeAdmin',
+      builder: (context, state) => const HomeAdminScreen(),
+    ),
+    GoRoute(
+      path: '/homeDriver',
+      name: 'homeDriver',
+      builder: (context, state) => const HomeDriverScreen(),
     ),
     GoRoute(
       path: '/orderClient',
@@ -47,6 +62,16 @@ final appRouter = GoRouter(
       builder: (context, state) => const IncidentDetailScreen(),
     ),
     GoRoute(
+      path: '/registerOrder',
+      name: 'registerOrder',
+      builder: (context, state) => const RegisterOrderScreen(),
+    ),
+    GoRoute(
+      path: '/registerClient',
+      name: 'registerClient',
+      builder: (context, state) => const RegisterClientScreen(),
+    ),
+    GoRoute(
       path: '/registerTransport',
       name: 'registerTransport',
       builder: (context, state) => const RegisterTransportScreen(),
@@ -57,14 +82,14 @@ final appRouter = GoRouter(
       builder: (context, state) => const RegisterVehicleScreen(),
     ),
     GoRoute(
-      path: '/createRequest',
-      name: 'createRequest',
-      builder: (context, state) => const CreateRequestScreen(),
-    ),
-    GoRoute(
       path: '/showShipment',
       name: 'showShipment',
       builder: (context, state) => const ShowShipmentScreen(),
+    ),
+    GoRoute(
+      path: '/showShipmentUbication',
+      name: 'showShipmentUbication',
+      builder: (context, state) => const ShowShipmentUbicationScreen(),
     ),
     GoRoute(
       path: '/profile',

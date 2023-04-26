@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.stotppub">
+    package="com.dash.stotppub.upc">
    <application
         android:label="stotppub"
         android:name="${applicationName}"

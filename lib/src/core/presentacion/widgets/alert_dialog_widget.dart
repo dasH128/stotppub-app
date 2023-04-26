@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:localstorage/localstorage.dart';
 
 class AlertDialogLogoutWidget extends StatelessWidget {
   const AlertDialogLogoutWidget({super.key});
@@ -29,7 +30,12 @@ class AlertDialogLogoutWidget extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () => context.pushReplacement('/'),
+          onPressed: () async {
+            final storage = LocalStorage('my_data.json');
+            await storage.setItem('userType', '');
+            await storage.setItem('isLogged', false);
+            context.pushReplacement('/');
+          },
           child: const Text('Ok'),
         )
       ],

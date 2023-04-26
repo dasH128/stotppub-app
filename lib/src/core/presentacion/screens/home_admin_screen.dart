@@ -2,17 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stotppub/src/core/presentacion/providers/sign_in_provider.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
-class HomeScreen extends ConsumerWidget {
-  const HomeScreen({super.key});
+class HomeAdminScreen extends ConsumerWidget {
+  const HomeAdminScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var type = ref.read(userType);
-    print('type home $type');
     return Scaffold(
+      
       // backgroundColor: Colors.greenAccent,
       body: SafeArea(
         child: Container(
@@ -23,6 +21,7 @@ class HomeScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const Text('Cuenta administrador'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -34,7 +33,7 @@ class HomeScreen extends ConsumerWidget {
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                         TextSpan(
-                          text: 'USUARIO',
+                          text: 'ADMIN',
                           style: TextStyle(
                             fontSize: 22,
                             color: Colors.blue,
@@ -74,21 +73,8 @@ class HomeScreen extends ConsumerWidget {
                 thickness: 1.5,
               ),
               const SizedBox(height: 25),
-              ItemOptionMenu(
-                text: 'Pedidos en curso',
-                icon: const Icon(
-                  Icons.send_rounded,
-                  size: 35,
-                ),
-                onClick: () {
-                  context.push('/orderClient', extra: 0);
-                  // context.goNamed('orderClient', params: {'initView': "1"});
-                },
-              ),
-              const SizedBox(height: 65),
-              if (type == 'transportista') const OptionsMenuTransport(),
-              if (type == 'cliente') const OptionsMenuClient(),
-              if (type == 'admin') const OptionsMenuAdmin(),
+              // const SizedBox(height: 65),
+              const OptionsMenuAdmin(),
             ],
           ),
         ),

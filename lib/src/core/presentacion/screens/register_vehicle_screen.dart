@@ -1,73 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:stotppub/src/core/presentacion/providers/register_vehicle_provider.dart';
+import 'package:stotppub/src/core/presentacion/widgets/snackbar_widget.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
 import '../../data/entity/entity.dart';
+import '../providers/register_transport_provider.dart';
 
-class RegisterVehicleScreen extends StatelessWidget {
+class RegisterVehicleScreen extends ConsumerWidget {
   const RegisterVehicleScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    bool isLoadingPage = ref.watch(isLoading);
     return Scaffold(
-      body: Builder(builder: (context) {
-        return CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              floating: true,
-              pinned: true,
-              expandedHeight: 350,
-              flexibleSpace: FlexibleSpaceBar(
-                title: const Text('Registrar Vehículo'),
-                background: Image.asset(
-                  'assets/images/register_vehicle.jpeg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Container(
-                padding: const EdgeInsetsDirectional.symmetric(
-                  vertical: 15,
-                  horizontal: 15,
-                ),
-                child: Column(
-                  children: [
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: const [
-                          _FormRegistartionNumber(),
-                          SizedBox(height: 10),
-                          _FormPropertyCard(),
-                          SizedBox(height: 10),
-                          _FormNumberOfAxes(),
-                          SizedBox(height: 10),
-                          _FormWidth(),
-                          SizedBox(height: 10),
-                          _FormLong(),
-                          SizedBox(height: 10),
-                          _FormSure(),
-                          SizedBox(height: 10),
-                          _FormSoat(),
-                          SizedBox(height: 10),
-                          _FormRefrigeration(),
-                          SizedBox(height: 10),
-                        ],
+      body: (isLoadingPage)
+          ? const LoadingWidget()
+          : Builder(
+              builder: (context) {
+                return CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      floating: true,
+                      pinned: true,
+                      expandedHeight: 350,
+                      flexibleSpace: FlexibleSpaceBar(
+                        title: const Text('Registrar Vehículo'),
+                        background: Image.asset(
+                          'assets/images/register_vehicle.jpeg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const _ButtonRegister(),
-                    const SizedBox(height: 20),
+                    SliverToBoxAdapter(
+                      child: Container(
+                        padding: const EdgeInsetsDirectional.symmetric(
+                          vertical: 15,
+                          horizontal: 15,
+                        ),
+                        child: Column(
+                          children: [
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                children: const [
+                                  _FormRegistartionNumber(),
+                                  SizedBox(height: 10),
+                                  _FormPropertyCard(),
+                                  SizedBox(height: 10),
+                                  _FormNumberOfAxes(),
+                                  SizedBox(height: 10),
+                                  _FormWidth(),
+                                  SizedBox(height: 10),
+                                  _FormLong(),
+                                  SizedBox(height: 10),
+                                  _FormSure(),
+                                  SizedBox(height: 10),
+                                  _FormSoat(),
+                                  SizedBox(height: 10),
+                                  _FormRefrigeration(),
+                                  SizedBox(height: 10),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            _ButtonRegister(ref: ref),
+                            const SizedBox(height: 20),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
-                ),
-              ),
-            )
-          ],
-        );
-      }),
+                );
+              },
+            ),
     );
   }
 }
@@ -80,6 +88,7 @@ class _FormLong extends ConsumerWidget {
     RegisterVehicleFormNotifier notifierForm =
         ref.watch(registerVehicleStateNotifierProvider.notifier);
     return TextFormFieldCustom1(
+      initialValue: notifierForm.state.long,
       prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
       hint: 'Ingrese el largo',
       onChanged: (value) {
@@ -98,6 +107,7 @@ class _FormWidth extends ConsumerWidget {
         ref.watch(registerVehicleStateNotifierProvider.notifier);
 
     return TextFormFieldCustom1(
+      initialValue: notifierForm.state.width,
       prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
       hint: 'Ingrese el ancho',
       onChanged: (value) {
@@ -115,6 +125,7 @@ class _FormNumberOfAxes extends ConsumerWidget {
     RegisterVehicleFormNotifier notifierForm =
         ref.watch(registerVehicleStateNotifierProvider.notifier);
     return TextFormFieldCustom1(
+      initialValue: notifierForm.state.numberOfAxes,
       prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
       hint: 'Ingrese Numero de ejes',
       onChanged: (value) {
@@ -133,6 +144,7 @@ class _FormPropertyCard extends ConsumerWidget {
         ref.watch(registerVehicleStateNotifierProvider.notifier);
 
     return TextFormFieldCustom1(
+      initialValue: notifierForm.state.propertyCard,
       prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
       hint: 'Ingrese tarjeta de prioridad',
       onChanged: (value) {
@@ -150,6 +162,7 @@ class _FormRegistartionNumber extends ConsumerWidget {
     RegisterVehicleFormNotifier notifierForm =
         ref.watch(registerVehicleStateNotifierProvider.notifier);
     return TextFormFieldCustom1(
+      initialValue: notifierForm.state.registrationNumber,
       prefixIcon: const Icon(Icons.pallet),
       hint: 'Ingrese placa',
       onChanged: (value) {
@@ -164,15 +177,16 @@ class _FormSure extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    RegisterVehicleFormNotifier notifierForm =
-        ref.watch(registerVehicleStateNotifierProvider.notifier);
+    bool switchValue = ref.watch(registerVehicleStateNotifierProvider).hasSure;
 
     return SwitchCustom1Widget(
       prefixIcon: const Icon(Icons.abc),
       text: 'Tiene seguro',
-      value: false,
+      value: switchValue,
       onChanged: (value) {
-        notifierForm.setHasSure(value);
+        ref
+            .read(registerVehicleStateNotifierProvider.notifier)
+            .setHasSure(value);
       },
     );
   }
@@ -183,15 +197,16 @@ class _FormSoat extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    RegisterVehicleFormNotifier notifier =
-        ref.watch(registerVehicleStateNotifierProvider.notifier);
+    bool switchValue = ref.watch(registerVehicleStateNotifierProvider).hasSoat;
 
     return SwitchCustom1Widget(
       prefixIcon: const Icon(Icons.soap),
       text: 'Tiene soat',
-      value: false,
+      value: switchValue,
       onChanged: (value) {
-        notifier.setHasSoat(value);
+        ref
+            .read(registerVehicleStateNotifierProvider.notifier)
+            .setHasSoat(value);
       },
     );
   }
@@ -202,40 +217,56 @@ class _FormRefrigeration extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    RegisterVehicleFormNotifier notifier =
-        ref.watch(registerVehicleStateNotifierProvider.notifier);
+    bool switchValue =
+        ref.watch(registerVehicleStateNotifierProvider).hasRefrigeration;
 
     return SwitchCustom1Widget(
       prefixIcon: const Icon(Icons.soap),
       text: 'Tiene Refrigeration',
-      value: false,
+      value: switchValue,
       onChanged: (value) {
-        notifier.setHasRefrigeration(value);
+        ref
+            .read(registerVehicleStateNotifierProvider.notifier)
+            .setHasRefrigeration(value);
       },
     );
   }
 }
 
-class _ButtonRegister extends ConsumerWidget {
+class _ButtonRegister extends StatelessWidget {
+  final WidgetRef ref;
   const _ButtonRegister({
     super.key,
+    required this.ref,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return ButtonCustom1Widget(
       text: 'Registrar',
-      onPressed: () {
-        RegisterVehicleFormEntity vehicle =
-            ref.read(registerVehicleStateNotifierProvider.notifier).state;
-        print('placa: ${vehicle.registrationNumber}');
-        print('soat: ${vehicle.hasSoat}');
-        print('tarjeta Propiedad: ${vehicle.propertyCard}');
-        print('N! ejes:  ${vehicle.numberOfAxes}');
-        print('ancho: ${vehicle.width}');
-        print('largo: ${vehicle.long}');
-        print('refrigeracion: ${vehicle.hasRefrigeration}');
-        print('seguro: ${vehicle.hasSure}');
+      onPressed: () async {
+        ref.read(isLoading.notifier).state = true;
+
+        RegisterVehicleFormNotifier vehicle =
+            ref.read(registerVehicleStateNotifierProvider.notifier);
+        var isCreate = await vehicle.addData();
+        ref.read(isLoading.notifier).state = false;
+        if (isCreate.isOk) {
+          vehicle.cleanData();
+          ref.context.pop();
+        } else {
+          var snac = snackBarWidget(title: 'Error', message: isCreate.menssage);
+
+          ScaffoldMessenger.of(ref.context).showSnackBar(snac);
+        }
+        // print('placa: ${vehicle.registrationNumber}');
+        // print('soat: ${vehicle.hasSoat}');
+        // print('tarjeta Propiedad: ${vehicle.propertyCard}');
+        // print('N! ejes:  ${vehicle.numberOfAxes}');
+        // print('ancho: ${vehicle.width}');
+        // print('largo: ${vehicle.long}');
+        // print('refrigeracion: ${vehicle.hasRefrigeration}');
+        // print('seguro: ${vehicle.hasSure}');
       },
     );
   }

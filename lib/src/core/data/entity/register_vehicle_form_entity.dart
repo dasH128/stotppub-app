@@ -1,4 +1,5 @@
 class RegisterVehicleFormEntity {
+  String? id;
   String registrationNumber;
   String propertyCard;
   String numberOfAxes;
@@ -9,6 +10,7 @@ class RegisterVehicleFormEntity {
   bool hasSoat;
 
   RegisterVehicleFormEntity({
+    this.id,
     this.registrationNumber = '',
     this.propertyCard = '',
     this.numberOfAxes = '',
@@ -20,6 +22,7 @@ class RegisterVehicleFormEntity {
   });
 
   RegisterVehicleFormEntity copy({
+    String? id,
     String? registrationNumber,
     String? propertyCard,
     String? numberOfAxes,
@@ -30,14 +33,14 @@ class RegisterVehicleFormEntity {
     bool? hasSoat,
   }) =>
       RegisterVehicleFormEntity(
+        id: id ?? this.id,
         registrationNumber: registrationNumber ?? this.registrationNumber,
-        propertyCard:  propertyCard ?? this.propertyCard,
+        propertyCard: propertyCard ?? this.propertyCard,
         numberOfAxes: numberOfAxes ?? this.numberOfAxes,
         width: width ?? this.width,
         long: long ?? this.long,
         hasRefrigeration: hasRefrigeration ?? this.hasRefrigeration,
         hasSure: hasSure ?? this.hasSure,
         hasSoat: hasSoat ?? this.hasSoat,
-
       );
 }

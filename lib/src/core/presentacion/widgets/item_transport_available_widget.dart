@@ -3,22 +3,16 @@ import 'package:flutter/material.dart';
 class ItemTransportAvailableWidget extends StatelessWidget {
   final String name;
   final String lastName;
-  final String propertyCard;
-  final String numberOfAxes;
-  final String long;
-  final String width;
-  final bool hasSoat;
-  final bool hasRefrigeration;
+  final String licenseNumber;
+  final String categoryLicense;
+  final Function()? onPressed;
   const ItemTransportAvailableWidget({
     super.key,
     required this.name,
     required this.lastName,
-    required this.propertyCard,
-    required this.numberOfAxes,
-    required this.long,
-    required this.width,
-    required this.hasSoat,
-    required this.hasRefrigeration,
+    required this.licenseNumber,
+    required this.categoryLicense,
+    this.onPressed,
   });
 
   @override
@@ -42,44 +36,20 @@ class ItemTransportAvailableWidget extends StatelessWidget {
                     children: [
                       TableRow(
                         children: [
-                          const Text('Placa: '),
-                          Text(propertyCard),
+                          const Text('licensia: '),
+                          Text(licenseNumber),
                         ],
                       ),
                       TableRow(
                         children: [
-                          const Text('Nº de ejes: '),
-                          Text(numberOfAxes),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          const Text('Ancho: '),
-                          Text(width),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          const Text('Largo: '),
-                          Text(long),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          const Text('Refrigeración: '),
-                          Text((hasRefrigeration) ? 'SI' : 'NO'),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          const Text('Soat: '),
-                          Text((hasSoat) ? 'SI' : 'NO'),
+                          const Text('Categoria: '),
+                          Text(categoryLicense),
                         ],
                       ),
                     ],
                   ),
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: onPressed,
                     child: const Text('ASIGNAR'),
                   )
                 ],

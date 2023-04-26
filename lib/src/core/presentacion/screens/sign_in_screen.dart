@@ -301,21 +301,23 @@ class _ButtonContainer extends ConsumerWidget {
     return ButtonCustom1Widget(
       text: 'INICIAR',
       onPressed: () async {
-        final storage = new LocalStorage('my_data.json');
+        final storage = LocalStorage('my_data.json');
+
+          
         if (_emailController.text == 'admin@gmail.com') {
-          ref.read(userType.notifier).state = 'admin';
           await storage.setItem('userType', 'admin');
-          context.push('/home');
+          await storage.setItem('isLogged', true);
+          context.go('/homeAdmin');
         }
         if (_emailController.text == 'transportista@gmail.com') {
-          ref.read(userType.notifier).state = 'transportista';
-          await storage.setItem('userType', 'transportista');
-          context.push('/home');
+          await storage.setItem('userType', 'driver');
+          await storage.setItem('isLogged', true);
+          context.go('/homeDriver');
         }
         if (_emailController.text == 'cliente@gmail.com') {
-          ref.read(userType.notifier).state = 'cliente';
-          await storage.setItem('userType', 'cliente');
-          context.push('/home');
+          await storage.setItem('userType', 'client');
+          await storage.setItem('isLogged', true);
+          context.go('/homeClient');
         }
 
         // await storage.setItem('isLogged', true);

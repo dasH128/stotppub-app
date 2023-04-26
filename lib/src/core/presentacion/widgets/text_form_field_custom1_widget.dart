@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class TextFormFieldCustom1 extends StatelessWidget {
   final String? label;
   final String? hint;
+  final String? initialValue;
   final Widget? prefixIcon;
   final bool obscureText;
   final String? errorMesagge;
@@ -14,6 +15,7 @@ class TextFormFieldCustom1 extends StatelessWidget {
     super.key,
     this.label,
     this.hint,
+    this.initialValue,
     this.obscureText = false,
     this.errorMesagge,
     this.colorError = const Color(0xFFC62828),
@@ -29,6 +31,7 @@ class TextFormFieldCustom1 extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
     );
     return TextFormField(
+      initialValue: initialValue,
       onChanged: onChanged,
       validator: validator,
       obscureText: obscureText,
@@ -45,10 +48,11 @@ class TextFormFieldCustom1 extends StatelessWidget {
         ),
         focusColor: colorPrimary,
         errorText: errorMesagge,
+        labelText: label,
         hintText: hint,
         filled: true,
         fillColor: colorPrimary.withOpacity(0.1),
-        prefixIcon:prefixIcon,
+        prefixIcon: prefixIcon,
         prefixIconColor: colorPrimary,
       ),
     );

@@ -1,4 +1,5 @@
 class RegisterTransportFormEntity {
+  String? id;
   String name;
   String lastName;
   String ruc;
@@ -10,6 +11,7 @@ class RegisterTransportFormEntity {
   String password;
 
   RegisterTransportFormEntity({
+    this.id,
     this.name = '',
     this.lastName = '',
     this.ruc = '',
@@ -22,6 +24,7 @@ class RegisterTransportFormEntity {
   });
 
   RegisterTransportFormEntity copy({
+    String? id,
     String? name,
     String? lastName,
     String? ruc,
@@ -33,6 +36,7 @@ class RegisterTransportFormEntity {
     String? password,
   }) =>
       RegisterTransportFormEntity(
+        id: id ?? this.id,
         name: name ?? this.name,
         lastName: lastName ?? this.lastName,
         ruc: ruc ?? this.ruc,

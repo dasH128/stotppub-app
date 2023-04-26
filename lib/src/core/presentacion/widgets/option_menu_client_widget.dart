@@ -29,11 +29,13 @@ class OptionsMenuClient extends StatelessWidget {
         const SizedBox(height: 15),
         ItemOptionMenu(
           text: 'Ver reportes de incidencias',
-          icon: Icon(
+          icon: const Icon(
             Icons.insert_chart_outlined_rounded,
             size: 35,
           ),
-          onClick: () {},
+          onClick: () {
+            context.push('/incident');
+          },
         ),
       ],
     );

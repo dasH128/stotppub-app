@@ -32,7 +32,7 @@ class _OrderScreenState extends State<OrderScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pedidos ...'),
+        title: const Text('Pedidos'),
         bottom: TabBar(
           controller: _controller,
           tabs: const [

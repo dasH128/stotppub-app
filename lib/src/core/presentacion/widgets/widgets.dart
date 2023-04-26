@@ -1,3 +1,5 @@
+export 'package:stotppub/src/core/presentacion/widgets/item_vehicle_available_widget.dart';
+export 'package:stotppub/src/core/presentacion/widgets/loading_widget.dart';
 export 'package:stotppub/src/core/presentacion/widgets/alert_dialog_widget.dart';
 export 'package:stotppub/src/core/presentacion/widgets/button_custom1_widget.dart';
 export 'package:stotppub/src/core/presentacion/widgets/item_incident_widget.dart';

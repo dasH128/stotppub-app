@@ -1,4 +1,4 @@
-package com.example.stotppub
+package com.dash.stotppub.upc
 
 import io.flutter.embedding.android.FlutterActivity
 

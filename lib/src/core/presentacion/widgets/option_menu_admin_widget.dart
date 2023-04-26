@@ -12,8 +12,19 @@ class OptionsMenuAdmin extends StatelessWidget {
     return Column(
       children: [
         const Text(
-          '¡Que deseas averiguar?',
+          '¡Que deseas realizar hoy?',
           style: TextStyle(fontSize: 20),
+        ),
+        const SizedBox(height: 15),
+        ItemOptionMenu(
+          text: 'Registrar Cliente',
+          icon: const Icon(
+            Icons.manage_search_rounded,
+            size: 35,
+          ),
+          onClick: () {
+            context.push('/registerTransport');
+          },
         ),
         const SizedBox(height: 15),
         ItemOptionMenu(
@@ -39,13 +50,24 @@ class OptionsMenuAdmin extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         ItemOptionMenu(
+          text: 'Ver Perfiles',
+          icon: const Icon(
+            Icons.people,
+            size: 35,
+          ),
+          onClick: () {
+            // context.push('/registerVehicle');
+          },
+        ),
+        const SizedBox(height: 15),
+        ItemOptionMenu(
           text: 'Crear Solicitud',
           icon: const Icon(
             Icons.archive,
             size: 35,
           ),
           onClick: () {
-            context.push('/createRequest');
+            context.push('/registerOrder');
           },
         ),
         const SizedBox(height: 15),
