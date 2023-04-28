@@ -13,8 +13,8 @@ final registerVehicleStateNotifierProvider = StateNotifierProvider<
       width: '',
       long: '',
       hasRefrigeration: false,
-      hasSure: false,
-      hasSoat: false,
+      hasSure: '',
+      hasSoat: '',
     ),
   ),
 );
@@ -53,12 +53,12 @@ class RegisterVehicleFormNotifier
     state = newState;
   }
 
-  setHasSoat(bool value) {
+  setHasSoat(String value) {
     final newState = state.copy(hasSoat: value);
     state = newState;
   }
 
-  setHasSure(bool value) {
+  setHasSure(String value) {
     final newState = state.copy(hasSure: value);
     state = newState;
     // state.hasSure = value;
@@ -76,8 +76,8 @@ class RegisterVehicleFormNotifier
       width: '',
       long: '',
       hasRefrigeration: false,
-      hasSure: false,
-      hasSoat: false,
+      hasSure: '',
+      hasSoat: '',
     );
   }
 

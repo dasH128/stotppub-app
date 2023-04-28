@@ -1,3 +1,7 @@
+export 'package:stotppub/src/core/presentacion/widgets/item_profile_client_widget.dart';
+export 'package:stotppub/src/core/presentacion/widgets/item_profile_driver_widget.dart';
+export 'package:stotppub/src/core/presentacion/widgets/item_profile_vehicle_widget.dart';
+
 export 'package:stotppub/src/core/presentacion/widgets/item_vehicle_available_widget.dart';
 export 'package:stotppub/src/core/presentacion/widgets/loading_widget.dart';
 export 'package:stotppub/src/core/presentacion/widgets/alert_dialog_widget.dart';

@@ -4,6 +4,20 @@ import 'package:stotppub/src/core/data/dto/response_data.dart';
 import 'package:stotppub/src/core/data/entity/entity.dart';
 import 'package:stotppub/src/core/data/entity/perecedero_entity.dart';
 
+final allClientProvider =
+    FutureProvider<List<QueryDocumentSnapshot<Object?>>>((ref) async {
+  CollectionReference db = FirebaseFirestore.instance.collection("clientes");
+  try {
+    var clients = await db.get();
+    return clients.docs;
+  } catch (e) {
+    print('error ${e.toString()}');
+    return [];
+  }
+
+  // return transports;
+});
+
 final allTransportProvider =
     FutureProvider<List<QueryDocumentSnapshot<Object?>>>((ref) async {
   CollectionReference db =

@@ -6,11 +6,16 @@ class MyAppTheme {
   static ThemeData theme = ThemeData(
     fontFamily: 'Nunito',
     useMaterial3: true,
-    primarySwatch: Colors.green,
-    primaryColor: Colors.green,
+    primarySwatch: Colors.purple,
+    primaryColor: Colors.purple,
     appBarTheme: const AppBarTheme(
-      color: Colors.green,
+      iconTheme: IconThemeData(color: Colors.white),
+      color: Colors.purple,
       centerTitle: false,
+      titleTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+      ),
     ),
     scaffoldBackgroundColor: Colors.deepPurple[50],
   );

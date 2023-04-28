@@ -6,7 +6,7 @@ class ItemVehicleAvailableWidget extends StatelessWidget {
   final String numberOfAxes;
   final String long;
   final String width;
-  final bool hasSoat;
+  final String hasSoat;
   final bool hasRefrigeration;
   final Function()? onPressed;
   const ItemVehicleAvailableWidget({
@@ -73,7 +73,7 @@ class ItemVehicleAvailableWidget extends StatelessWidget {
                       TableRow(
                         children: [
                           const Text('Soat: '),
-                          Text((hasSoat) ? 'SI' : 'NO'),
+                          Text(hasSoat),
                         ],
                       ),
                     ],

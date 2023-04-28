@@ -23,7 +23,7 @@ class OptionsMenuAdmin extends StatelessWidget {
             size: 35,
           ),
           onClick: () {
-            context.push('/registerTransport');
+            context.push('/registerClient');
           },
         ),
         const SizedBox(height: 15),
@@ -56,7 +56,7 @@ class OptionsMenuAdmin extends StatelessWidget {
             size: 35,
           ),
           onClick: () {
-            // context.push('/registerVehicle');
+            context.push('/showProfiles');
           },
         ),
         const SizedBox(height: 15),

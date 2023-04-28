@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/data/entity/entity.dart';
 import 'package:stotppub/src/core/presentacion/screens/screens.dart';
 
 final appRouter = GoRouter(
@@ -18,6 +19,46 @@ final appRouter = GoRouter(
       path: '/signUpClient',
       name: 'signUpClient',
       builder: (context, state) => const SignUpClientScreen(),
+    ),
+    GoRoute(
+      path: '/showProfiles',
+      name: 'showProfiles',
+      builder: (context, state) => const ShowProfilesScreen(),
+    ),
+    GoRoute(
+      path: '/showProfileClient',
+      name: 'showProfileClient',
+      builder: (context, state) => const ShowProfileClientScreen(),
+    ),
+    GoRoute(
+      path: '/showProfileDriver',
+      name: 'showProfileDriver',
+      builder: (context, state) => const ShowProfileDriverScreen(),
+    ),
+    GoRoute(
+      path: '/showProfileVehicle',
+      name: 'showProfileVehicle',
+      builder: (context, state) => const ShowProfileVehicleScreen(),
+    ),
+    GoRoute(
+      path: '/profileVehicleInfo',
+      name: 'profileVehicleInfo',
+      builder: (context, state) => ProfileInfoVehicleScreen(
+        vehicle: (state.extra as RegisterVehicleFormEntity),
+      ),
+    ),
+    GoRoute(
+      path: '/profileDriverInfo',
+      name: 'profileDriverInfo',
+      builder: (context, state) => ProfileInfoDriverScreen(
+        driver: (state.extra as RegisterTransportFormEntity),
+      ),
+    ),
+    GoRoute(
+      path: '/profileClientInfo',
+      name: 'profileClientInfo',
+      builder: (context, state) => ProfileInfoClientScreen(
+          client: (state.extra as RegisterClientFormEntity)),
     ),
     GoRoute(
       path: '/signUpTransport',

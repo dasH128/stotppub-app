@@ -177,16 +177,14 @@ class _FormSure extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool switchValue = ref.watch(registerVehicleStateNotifierProvider).hasSure;
-
-    return SwitchCustom1Widget(
+    RegisterVehicleFormNotifier notifierForm =
+        ref.watch(registerVehicleStateNotifierProvider.notifier);
+    return TextFormFieldCustom1(
+      initialValue: notifierForm.state.hasSure,
       prefixIcon: const Icon(Icons.abc),
-      text: 'Tiene seguro',
-      value: switchValue,
+      hint: 'Tiene seguro',
       onChanged: (value) {
-        ref
-            .read(registerVehicleStateNotifierProvider.notifier)
-            .setHasSure(value);
+        notifierForm.setHasSure(value);
       },
     );
   }
@@ -197,16 +195,14 @@ class _FormSoat extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool switchValue = ref.watch(registerVehicleStateNotifierProvider).hasSoat;
-
-    return SwitchCustom1Widget(
+    RegisterVehicleFormNotifier notifierForm =
+        ref.watch(registerVehicleStateNotifierProvider.notifier);
+    return TextFormFieldCustom1(
+      initialValue: notifierForm.state.hasSoat,
       prefixIcon: const Icon(Icons.soap),
-      text: 'Tiene soat',
-      value: switchValue,
+      hint: 'Tiene soat',
       onChanged: (value) {
-        ref
-            .read(registerVehicleStateNotifierProvider.notifier)
-            .setHasSoat(value);
+        notifierForm.setHasSoat(value);
       },
     );
   }

@@ -6,8 +6,8 @@ class RegisterVehicleFormEntity {
   String width;
   String long;
   bool hasRefrigeration;
-  bool hasSure;
-  bool hasSoat;
+  String hasSure;
+  String hasSoat;
 
   RegisterVehicleFormEntity({
     this.id,
@@ -17,8 +17,8 @@ class RegisterVehicleFormEntity {
     this.width = '',
     this.long = '',
     this.hasRefrigeration = false,
-    this.hasSure = false,
-    this.hasSoat = false,
+    this.hasSure = '',
+    this.hasSoat = '',
   });
 
   RegisterVehicleFormEntity copy({
@@ -29,8 +29,8 @@ class RegisterVehicleFormEntity {
     String? width,
     String? long,
     bool? hasRefrigeration,
-    bool? hasSure,
-    bool? hasSoat,
+    String? hasSure,
+    String? hasSoat,
   }) =>
       RegisterVehicleFormEntity(
         id: id ?? this.id,

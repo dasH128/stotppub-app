@@ -1,3 +1,11 @@
+export 'package:stotppub/src/core/presentacion/screens/profile_info_client_screen.dart';
+export 'package:stotppub/src/core/presentacion/screens/profile_info_driver_screen.dart';
+export 'package:stotppub/src/core/presentacion/screens/profile_info_vehicle_screen.dart';
+
+export 'package:stotppub/src/core/presentacion/screens/show_profile_vehicle_screen.dart';
+export 'package:stotppub/src/core/presentacion/screens/show_profile_driver_screen.dart';
+export 'package:stotppub/src/core/presentacion/screens/show_profile_client_screen.dart';
+export 'package:stotppub/src/core/presentacion/screens/show_profiles_screen.dart';
 export 'package:stotppub/src/core/presentacion/screens/register_client_screen.dart';
 export 'package:stotppub/src/core/presentacion/screens/home_admin_screen.dart';
 export 'package:stotppub/src/core/presentacion/screens/home_client_screen.dart';

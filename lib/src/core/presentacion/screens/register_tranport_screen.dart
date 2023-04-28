@@ -93,6 +93,7 @@ class _FormPassword extends ConsumerWidget {
     return TextFormFieldCustom1(
       initialValue: notifierForm.state.password,
       prefixIcon: const Icon(Icons.password),
+      obscureText: true,
       hint: 'Ingrese Password',
       onChanged: (value) {
         notifierForm.setPassword(value);
