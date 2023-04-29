@@ -14,7 +14,7 @@ class ShowProfileClientScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Clientes'),
+        title: const Text('Clientes'),
       ),
       body: Container(
         child: all.when(
@@ -24,6 +24,10 @@ class ShowProfileClientScreen extends ConsumerWidget {
                   id: doc['id'],
                   name: doc["name"],
                   lastName: doc["lastName"],
+                  address: doc["address"],
+                  phone: doc["phone"],
+                  dni: doc["dni"],
+                  email: doc["email"],
                 );
               }).toList();
 

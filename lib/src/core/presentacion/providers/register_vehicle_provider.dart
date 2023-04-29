@@ -70,6 +70,7 @@ class RegisterVehicleFormNotifier
 
   cleanData() {
     state = RegisterVehicleFormEntity(
+      id: null,
       registrationNumber: '',
       propertyCard: '',
       numberOfAxes: '',
@@ -102,6 +103,37 @@ class RegisterVehicleFormNotifier
       return ResponseData(isOk: true, menssage: 'isOk', data: null);
     } catch (e) {
       return ResponseData(isOk: false, menssage: e.toString(), data: null);
+    }
+  }
+
+  Future<ResponseData> editData(String id) async {
+    CollectionReference db = FirebaseFirestore.instance.collection("vehiculo");
+
+    final vehicle = <String, dynamic>{
+      // "name": state.registrationNumber,
+      "propertyCard": state.propertyCard,
+      "numberOfAxes": state.numberOfAxes,
+      "long": state.long,
+      "width": state.width,
+      "hasSure": state.hasSure,
+      "hasSoat": state.hasSoat,
+      "hasRefrigeration": state.hasRefrigeration,
+    };
+
+    print('propertyCard es ${state.propertyCard}');
+    print('numberOfAxes es ${state.numberOfAxes}');
+    print('long es ${state.long}');
+    print('width es ${state.width}');
+    print('hasSure es ${state.hasSure}');
+    print('hasSoat es ${state.hasSoat}');
+    print('hasRefrigeration es ${state.hasRefrigeration}');
+
+    // return ResponseData(isOk: false, menssage: 'ZzzZZZ.zz');
+    try {
+      await db.doc(id).update(vehicle);
+      return ResponseData(isOk: true, menssage: 'isOK', data: null);
+    } catch (e) {
+      return ResponseData(isOk: false, menssage: e.toString());
     }
   }
 }

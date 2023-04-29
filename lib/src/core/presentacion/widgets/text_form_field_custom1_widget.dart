@@ -6,6 +6,7 @@ class TextFormFieldCustom1 extends StatelessWidget {
   final String? initialValue;
   final Widget? prefixIcon;
   final bool obscureText;
+  final bool enabled;
   final String? errorMesagge;
   final Color colorError;
   final Function(String)? onChanged;
@@ -17,6 +18,7 @@ class TextFormFieldCustom1 extends StatelessWidget {
     this.hint,
     this.initialValue,
     this.obscureText = false,
+    this.enabled = true,
     this.errorMesagge,
     this.colorError = const Color(0xFFC62828),
     this.onChanged,
@@ -36,6 +38,10 @@ class TextFormFieldCustom1 extends StatelessWidget {
       validator: validator,
       obscureText: obscureText,
       decoration: InputDecoration(
+        enabled: enabled,
+        disabledBorder: border.copyWith(
+          borderSide: BorderSide(color: colorPrimary),
+        ),
         enabledBorder: border,
         focusedBorder: border.copyWith(
           borderSide: BorderSide(color: colorPrimary),

@@ -20,12 +20,14 @@ class ShowProfileVehicleScreen extends ConsumerWidget {
             data: (data) {
               var vehicles = data.map((doc) {
                 return RegisterVehicleFormEntity(
+                  id: doc["id"],
+                  registrationNumber: doc["registrationNumber"],
                   propertyCard: doc["propertyCard"],
                   numberOfAxes: doc["numberOfAxes"],
-                  id: doc["id"],
                   width: doc["width"],
                   long: doc["long"],
                   hasSoat: doc["hasSoat"],
+                  hasSure: doc["hasSure"],
                   hasRefrigeration: doc["hasRefrigeration"],
                 );
               }).toList();
@@ -34,7 +36,7 @@ class ShowProfileVehicleScreen extends ConsumerWidget {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('No hay ningunn Vehiculo'),
+                    const Text('No hay ningun Vehiculo'),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16),
                       child: ButtonCustom1Widget(

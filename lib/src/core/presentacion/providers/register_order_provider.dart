@@ -53,7 +53,7 @@ final allPerecederoProvider =
 final registerOrderStateNotifierProvider =
     StateNotifierProvider<RegisterOrderFormNotifier, RegisterOrderFormEntity>(
   (ref) => RegisterOrderFormNotifier(RegisterOrderFormEntity(
-    ruc: '',
+    dni: '',
     phone: '',
     idClient: '',
     idDriver: '',
@@ -67,8 +67,8 @@ final registerOrderStateNotifierProvider =
 class RegisterOrderFormNotifier extends StateNotifier<RegisterOrderFormEntity> {
   RegisterOrderFormNotifier(super.state);
 
-  setRuc(String value) {
-    final newState = state.copy(ruc: value);
+  setDNI(String value) {
+    final newState = state.copy(dni: value);
     state = newState;
   }
 
@@ -112,15 +112,44 @@ class RegisterOrderFormNotifier extends StateNotifier<RegisterOrderFormEntity> {
     state = newState;
   }
 
+  Future<ResponseData<RegisterClientFormEntity>> findClientByDni() async {
+    CollectionReference db =
+        await FirebaseFirestore.instance.collection('clientes');
+
+    try {
+      var clientsDB =
+          await db.limit(1).where('dni', isEqualTo: state.dni).get();
+
+      List<QueryDocumentSnapshot<Object?>> clientsFind = clientsDB.docs;
+      List<RegisterClientFormEntity> clients = clientsFind.map((doc) {
+        return RegisterClientFormEntity(
+          id: doc['id'] ?? '',
+          dni: doc['dni'] ?? '',
+          name: doc['name'] ?? '',
+          lastName: doc['lastName'] ?? '',
+        );
+      }).toList();
+
+      if (clients.isEmpty) {
+        return ResponseData(isOk: false, menssage: 'No se encontro');
+      } else {
+        return ResponseData(isOk: true, menssage: 'isOK', data: clients.first);
+      }
+    } catch (e) {
+      return ResponseData(isOk: false, menssage: e.toString());
+    }
+  }
+
   Future<ResponseData<String>> addData() async {
     CollectionReference db = FirebaseFirestore.instance.collection('order');
 
     showData();
     final order = <String, String>{
       'id': '',
+      'idClient': state.idClient,
       'idDriver': state.idDriver,
       'idVehicle': state.idVehicle,
-      'ruc': state.ruc!,
+      'dni': state.dni!,
       'phone': state.phone,
       'address': state.address,
       'date': state.date,
@@ -146,6 +175,6 @@ class RegisterOrderFormNotifier extends StateNotifier<RegisterOrderFormEntity> {
     print(state.date);
     print(state.address);
     print(state.phone);
-    print(state.ruc);
+    print(state.dni);
   }
 }

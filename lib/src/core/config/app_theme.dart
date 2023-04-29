@@ -17,6 +17,7 @@ class MyAppTheme {
         fontSize: 20,
       ),
     ),
+    tabBarTheme: const TabBarTheme(labelColor: Colors.white, ),
     scaffoldBackgroundColor: Colors.deepPurple[50],
   );
 }

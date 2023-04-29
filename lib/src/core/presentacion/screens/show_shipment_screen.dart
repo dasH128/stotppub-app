@@ -79,9 +79,13 @@ class TabViewProgress extends ConsumerWidget {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('No hay ningunn Orden'),
+                const Text('No hay ninguna Orden en PROCESO'),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(
+                    bottom: 16,
+                    left: 16,
+                    right: 16,
+                  ),
                   child: ButtonCustom1Widget(
                     text: 'ATRAS',
                     onPressed: () {
@@ -136,9 +140,13 @@ class TabViewFinalized extends ConsumerWidget {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('No hay ningunn Orden'),
+                const Text('No hay ninguna Orden FINALIZADA'),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(
+                    bottom: 16,
+                    left: 16,
+                    right: 16,
+                  ),
                   child: ButtonCustom1Widget(
                     text: 'ATRAS',
                     onPressed: () {

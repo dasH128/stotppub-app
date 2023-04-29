@@ -1,9 +1,11 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:stotppub/src/core/data/entity/entity.dart';
 import 'package:stotppub/src/core/presentacion/providers/register_order_provider.dart';
+import 'package:stotppub/src/core/presentacion/widgets/snackbar_widget.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
 class RegisterOrderScreen extends ConsumerStatefulWidget {
@@ -52,7 +54,7 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
           ];
         },
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(16.0),
           child: PageView(
             physics: const NeverScrollableScrollPhysics(),
             controller: pageController,
@@ -72,73 +74,118 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
     RegisterOrderFormNotifier notifier =
         ref.watch(registerOrderStateNotifierProvider.notifier);
     return Container(
-      child: Column(
-        children: [
-          TextFormFieldCustom1(
-            initialValue: notifier.state.idClient,
-            prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
-            hint: 'Ingrese RUC',
-            onChanged: (value) {
-              notifier.setRuc(value);
-            },
-          ),
-          const SizedBox(height: 15),
-          TextFormFieldCustom1(
-            initialValue: notifier.state.phone,
-            prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
-            hint: 'Ingrese telefono',
-            onChanged: (value) {
-              notifier.setPhone(value);
-            },
-          ),
-          const SizedBox(height: 15),
-          TextFormFieldCustom1(
-            initialValue: notifier.state.address,
-            prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
-            hint: 'Ingrese Direcciçon',
-            onChanged: (value) {
-              notifier.setAddress(value);
-            },
-          ),
-          const SizedBox(height: 15),
-          TextFormFieldCustom1(
-            initialValue: notifier.state.date,
-            prefixIcon: const Icon(Icons.date_range),
-            hint: 'Ingrese Fecha',
-            onChanged: (value) {
-              notifier.setDate(value);
-            },
-          ),
-          const SizedBox(height: 15),
-          TextFormFieldCustom1(
-            initialValue: notifier.state.product,
-            prefixIcon: const Icon(Icons.production_quantity_limits),
-            hint: 'Ingrese Producto',
-            onChanged: (value) {
-              notifier.setProduct(value);
-            },
-          ),
-          const SizedBox(height: 15),
-          TextFormFieldCustom1(
-            initialValue: notifier.state.quantity,
-            prefixIcon: const Icon(Icons.numbers),
-            hint: 'Ingrese cantidad',
-            onChanged: (value) {
-              notifier.setQuantity(value);
-            },
-          ),
-          const SizedBox(height: 15),
-          ButtonCustom1Widget(
-            text: 'ASIGNAR',
-            onPressed: () {
-              pageController.animateToPage(
-                1,
-                duration: const Duration(seconds: 1),
-                curve: Curves.bounceIn,
-              );
-            },
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormFieldCustom1(
+                    initialValue: notifier.state.idClient,
+                    prefixIcon:
+                        const Icon(Icons.align_horizontal_right_outlined),
+                    hint: 'Ingrese DNI cliente',
+                    onChanged: (value) {
+                      notifier.setDNI(value);
+                    },
+                  ),
+                ),
+                Container(
+                  width: 90,
+                  padding: const EdgeInsets.all(8),
+                  child: ButtonCustom1Widget(
+                    text: 'VER',
+                    onPressed: () async {
+                      var data = await notifier.findClientByDni();
+                      if (!data.isOk) {
+                        var snackBar = snackBarWidget(
+                          title: 'Error',
+                          message: data.menssage,
+                        );
+                        ScaffoldMessenger.of(ref.context)
+                            .showSnackBar(snackBar);
+                      } else {
+                        var snackBar = snackBarWidget(
+                          type: ContentType.success,
+                          title: 'Encontrado',
+                          message:
+                              'Usuario ${data.data!.name} ${data.data!.lastName}',
+                        );
+                        ScaffoldMessenger.of(ref.context)
+                            .showSnackBar(snackBar);
+                        notifier.setIdClient(data.data!.id!);
+                      }
+                    },
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(height: 15),
+            TextFormFieldCustom1(
+              initialValue: notifier.state.phone,
+              prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
+              hint: 'Ingrese telefono',
+              onChanged: (value) {
+                notifier.setPhone(value);
+              },
+            ),
+            const SizedBox(height: 15),
+            TextFormFieldCustom1(
+              initialValue: notifier.state.address,
+              prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
+              hint: 'Ingrese Direcciçon',
+              onChanged: (value) {
+                notifier.setAddress(value);
+              },
+            ),
+            const SizedBox(height: 15),
+            TextFormFieldCustom1(
+              initialValue: notifier.state.date,
+              prefixIcon: const Icon(Icons.date_range),
+              hint: 'Ingrese Fecha',
+              onChanged: (value) {
+                notifier.setDate(value);
+              },
+            ),
+            const SizedBox(height: 15),
+            TextFormFieldCustom1(
+              initialValue: notifier.state.product,
+              prefixIcon: const Icon(Icons.production_quantity_limits),
+              hint: 'Ingrese Producto',
+              onChanged: (value) {
+                notifier.setProduct(value);
+              },
+            ),
+            const SizedBox(height: 15),
+            TextFormFieldCustom1(
+              initialValue: notifier.state.quantity,
+              prefixIcon: const Icon(Icons.numbers),
+              hint: 'Ingrese cantidad',
+              onChanged: (value) {
+                notifier.setQuantity(value);
+              },
+            ),
+            const SizedBox(height: 15),
+            ButtonCustom1Widget(
+              text: 'ASIGNAR',
+              onPressed: () {
+                if (notifier.state.idClient == '') {
+                  var snackBar = snackBarWidget(
+                    title: 'Error',
+                    message: 'No hay un cliente asociado',
+                  );
+                  ScaffoldMessenger.of(ref.context).showSnackBar(snackBar);
+                } else {
+                  pageController.animateToPage(
+                    1,
+                    duration: const Duration(seconds: 1),
+                    curve: Curves.bounceIn,
+                  );
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -162,7 +209,7 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('No hay ningunn Transportista'),
+                  const Text('No hay ningun Transportista'),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 16),
                     child: ButtonCustom1Widget(
@@ -225,7 +272,7 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('No hay ningunn Vehiculo'),
+              const Text('No hay ningun Vehiculo'),
               Padding(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: ButtonCustom1Widget(

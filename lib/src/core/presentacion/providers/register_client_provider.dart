@@ -63,10 +63,12 @@ class RegisterClientFormNotifier
 
   cleanData() {
     state = RegisterClientFormEntity(
+      id: null,
       name: '',
       lastName: '',
       phone: '',
       dni: '',
+      address: '',
       email: '',
       password: '',
     );
@@ -125,6 +127,30 @@ class RegisterClientFormNotifier
         print('e ${e.toString()}');
         return ResponseData(isOk: false, menssage: e.toString());
       }
+    }
+  }
+
+  Future<ResponseData> editData(String id) async {
+    CollectionReference db = FirebaseFirestore.instance.collection("clientes");
+
+    final client = <String, dynamic>{
+      "name": state.name,
+      "lastName": state.lastName,
+      "phone": state.phone,
+      "address": state.address,
+    };
+
+    print('name es ${state.name}');
+    print('lastName es ${state.lastName}');
+    print('phone es ${state.phone}');
+    print('address es ${state.address}');
+    // return ResponseData(isOk: false, menssage: 'dbdb');
+
+    try {
+      await db.doc(id).update(client);
+      return ResponseData(isOk: true, menssage: 'isOK', data: null);
+    } catch (e) {
+      return ResponseData(isOk: false, menssage: e.toString());
     }
   }
 }

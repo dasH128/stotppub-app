@@ -23,6 +23,12 @@ class RegisterTransportFormEntity {
     this.password = '',
   });
 
+  @override
+  String toString() {
+    // TODO: implement toString
+    return 'n:$name l:$lastName cat:$categoryLicense';
+  }
+
   RegisterTransportFormEntity copy({
     String? id,
     String? name,

@@ -29,26 +29,32 @@ class RegisterTransportFormNotifier
   RegisterTransportFormNotifier(super.state);
 
   setName(String value) {
+    final newState = state.copy(name: value);
     state.name = value;
   }
 
   setLastName(String value) {
+    final newState = state.copy(lastName: value);
     state.lastName = value;
   }
 
   setRuc(String value) {
+    final newState = state.copy(ruc: value);
     state.ruc = value;
   }
 
   setAddress(String value) {
+    final newState = state.copy(address: value);
     state.address = value;
   }
 
   setNumber(String value) {
+    final newState = state.copy(number: value);
     state.number = value;
   }
 
   setLicenseNumber(String value) {
+    final newState = state.copy(licenseNumber: value);
     state.licenseNumber = value;
   }
 
@@ -59,15 +65,18 @@ class RegisterTransportFormNotifier
   }
 
   setEmail(String value) {
+    final newState = state.copy(email: value);
     state.email = value;
   }
 
   setPassword(String value) {
+    final newState = state.copy(password: value);
     state.password = value;
   }
 
   cleanData() {
     state = RegisterTransportFormEntity(
+      id: null,
       name: '',
       lastName: '',
       ruc: '',
@@ -82,8 +91,6 @@ class RegisterTransportFormNotifier
   // updateData({String? name}) {
   //   state.copy(name: name);
   // }
-
-
 
   Future<ResponseData<RegisterTransportFormEntity>> addData() async {
     ResponseData<User> createUser =
@@ -143,6 +150,32 @@ class RegisterTransportFormNotifier
         print('e ${e.toString()}');
         return ResponseData(isOk: false, menssage: e.toString());
       }
+    }
+  }
+
+  Future<ResponseData> editData(String id) async {
+    CollectionReference db =
+        FirebaseFirestore.instance.collection("trasnportista");
+    final transport = <String, dynamic>{
+      "name": state.name,
+      "lastName": state.lastName,
+      "licenseNumber": state.licenseNumber,
+      "number": state.number,
+      "categoryLicense": state.categoryLicense,
+      "address": state.address,
+    };
+    print('id es $id');
+    print('name es ${state.name}');
+    print('lastName es ${state.lastName}');
+    print('licenseNumber es ${state.licenseNumber}');
+    print('number es ${state.number}');
+    print('categoryLicense es ${state.categoryLicense}');
+    print('address es ${state.address}');
+    try {
+      await db.doc(id).update(transport);
+      return ResponseData(isOk: true, menssage: 'isOk', data: null);
+    } catch (e) {
+      return ResponseData(isOk: false, menssage: e.toString(), data: null);
     }
   }
 }

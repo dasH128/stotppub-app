@@ -1,7 +1,7 @@
 class RegisterOrderFormEntity {
   String? id;
   String phone;
-  String? ruc;
+  String? dni;
   String idClient;
   String idDriver;
   String idVehicle;
@@ -15,7 +15,7 @@ class RegisterOrderFormEntity {
   RegisterOrderFormEntity({
     this.id,
     this.phone = '',
-    this.ruc = '',
+    this.dni = '',
     this.idClient = '',
     this.idDriver = '',
     this.idVehicle = '',
@@ -29,7 +29,7 @@ class RegisterOrderFormEntity {
 
   RegisterOrderFormEntity copy({
     String? id,
-    String? ruc,
+    String? dni,
     String? phone,
     String? idClient,
     String? idDriver,
@@ -43,7 +43,7 @@ class RegisterOrderFormEntity {
   }) =>
       RegisterOrderFormEntity(
         id: id ?? this.id,
-        ruc: ruc ?? this.ruc,
+        dni: dni ?? this.dni,
         phone: phone ?? this.phone,
         idClient: idClient ?? this.idClient,
         idDriver: idDriver ?? this.idDriver,

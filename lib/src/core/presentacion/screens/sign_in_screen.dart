@@ -33,7 +33,7 @@ class SignInScreen extends ConsumerWidget {
                         ? const TutorialContainer()
                         : const SelectedTypeOfNewUserContainer();
               } else {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
             }),
       ),
@@ -303,7 +303,6 @@ class _ButtonContainer extends ConsumerWidget {
       onPressed: () async {
         final storage = LocalStorage('my_data.json');
 
-          
         if (_emailController.text == 'admin@gmail.com') {
           await storage.setItem('userType', 'admin');
           await storage.setItem('isLogged', true);
