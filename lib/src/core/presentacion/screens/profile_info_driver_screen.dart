@@ -60,6 +60,7 @@ class ProfileInfoDriverScreenState
               child: Column(
                 children: [
                   TextFormFieldCustom1(
+                    enabled: false,
                     prefixIcon: const Icon(Icons.person),
                     label: 'Nombre',
                     initialValue: notifierForm.state.name, //driver?.name ?? '',
@@ -69,6 +70,7 @@ class ProfileInfoDriverScreenState
                   ),
                   const SizedBox(height: 10),
                   TextFormFieldCustom1(
+                    enabled: false,
                     prefixIcon: const Icon(Icons.person),
                     label: 'Apellido',
                     initialValue: notifierForm.state.lastName,

@@ -85,7 +85,8 @@ class RegisterClientFormNotifier
 
     String id = createUser.data!.uid;
     CollectionReference db = FirebaseFirestore.instance.collection("clientes");
-
+    CollectionReference dbType =
+        FirebaseFirestore.instance.collection("userType");
     final client = <String, dynamic>{
       "id": id,
       "name": state.name,
@@ -95,9 +96,14 @@ class RegisterClientFormNotifier
       "address": state.address,
       "email": state.email,
       "password": state.password,
+      "type": "client",
     };
 
     try {
+      await dbType.doc(id).set({
+        "idUser": id,
+        "type": "client",
+      });
       var data = await db.doc(id).set(client);
       return ResponseData(isOk: true, menssage: 'isOk', data: null);
     } catch (e) {

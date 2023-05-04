@@ -103,7 +103,8 @@ class RegisterTransportFormNotifier
     String id = createUser.data!.uid;
     CollectionReference db =
         FirebaseFirestore.instance.collection("trasnportista");
-
+    CollectionReference dbType =
+        FirebaseFirestore.instance.collection("userType");
     final transport = <String, dynamic>{
       "id": id,
       "name": state.name,
@@ -115,9 +116,14 @@ class RegisterTransportFormNotifier
       "address": state.address,
       "email": state.email,
       "password": state.password,
+      "type":"driver",
     };
 
     try {
+      await dbType.doc(id).set({
+        "idUser": id,
+        "type": "driver",
+      });
       var data = await db.doc(id).set(transport);
       // DocumentReference value = await db.add(transport);
       // print('id ${value.id}');

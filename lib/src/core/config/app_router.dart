@@ -86,6 +86,12 @@ final appRouter = GoRouter(
       builder: (context, state) => OrderScreen(
         initView: (state.extra as int),
       ),
+    ),GoRoute(
+      path: '/orderDriver',
+      name: 'orderDriver',
+      builder: (context, state) => OrdersDriverScreen(
+        initView: (state.extra as int),
+      ),
     ),
     GoRoute(
       path: '/orderHistoryClient',
@@ -121,6 +127,11 @@ final appRouter = GoRouter(
       path: '/registerVehicle',
       name: 'registerVehicle',
       builder: (context, state) => const RegisterVehicleScreen(),
+    ),
+     GoRoute(
+      path: '/showPerishable',
+      name: 'showPerishable',
+      builder: (context, state) => const ShowPerishableWidget(),
     ),
     GoRoute(
       path: '/showShipment',

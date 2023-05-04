@@ -32,7 +32,7 @@ class ShowShipmentScreenState extends ConsumerState<ShowShipmentScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Visualizar Envios'),
+        title: const Text('Ordenes de envio'),
         bottom: TabBar(
           controller: _controller,
           tabs: const [

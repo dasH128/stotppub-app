@@ -155,7 +155,7 @@ class RegisterOrderFormNotifier extends StateNotifier<RegisterOrderFormEntity> {
       'date': state.date,
       'product': state.product,
       'quantity': state.quantity,
-      'state': state.state ?? 'PROCESO',
+      'state': state.state ?? 'PROCESO', // TODO revisar
     };
     try {
       DocumentReference createOrder = await db.add(order);

@@ -121,6 +121,8 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
               ],
             ),
             const SizedBox(height: 15),
+            //TODO:
+            //vincular con el dato del usuario
             TextFormFieldCustom1(
               initialValue: notifier.state.phone,
               prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
@@ -130,6 +132,8 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
               },
             ),
             const SizedBox(height: 15),
+            //TODO
+            // buscar por el nombre no GPS
             TextFormFieldCustom1(
               initialValue: notifier.state.address,
               prefixIcon: const Icon(Icons.align_horizontal_right_outlined),

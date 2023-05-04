@@ -17,7 +17,7 @@ class OptionsMenuAdmin extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         ItemOptionMenu(
-          text: 'Registrar Cliente',
+          text: 'Registrar cliente',
           icon: const Icon(
             Icons.manage_search_rounded,
             size: 35,
@@ -50,7 +50,7 @@ class OptionsMenuAdmin extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         ItemOptionMenu(
-          text: 'Ver Perfiles',
+          text: 'Ver perfiles',
           icon: const Icon(
             Icons.people,
             size: 35,
@@ -61,7 +61,7 @@ class OptionsMenuAdmin extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         ItemOptionMenu(
-          text: 'Crear Solicitud',
+          text: 'Registrar orden de envio',
           icon: const Icon(
             Icons.archive,
             size: 35,
@@ -72,7 +72,7 @@ class OptionsMenuAdmin extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         ItemOptionMenu(
-          text: 'Visualizar envios',
+          text: 'Ver ordenes de envio',
           icon: const Icon(
             Icons.fmd_good_sharp,
             size: 35,
@@ -81,6 +81,16 @@ class OptionsMenuAdmin extends StatelessWidget {
             context.push('/showShipment');
           },
         ),
+        // TODO Ver perecederos
+
+        const SizedBox(height: 15),
+        ItemOptionMenu(
+          text: 'Ver perecederos',
+          icon: const Icon(Icons.data_array),
+          onClick: () {
+            context.push('/showPerishable');
+          },
+        )
       ],
     );
   }

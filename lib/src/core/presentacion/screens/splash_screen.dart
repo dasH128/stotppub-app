@@ -44,13 +44,14 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  _validarTipoUsuario( ) {
+  _validarTipoUsuario() {
     final storage = LocalStorage('my_data.json');
     Future.delayed(const Duration(seconds: 1), () async {
       bool isLogged = storage.getItem('isLogged') ?? false;
       if (isLogged) {
         String typeUser = await storage.getItem('userType');
-        print('jordy $typeUser');
+        String idUser = await storage.getItem('idUser');
+        print('jordy $typeUser - $idUser');
         if (typeUser == 'client') {
           context.goNamed('homeClient');
         }

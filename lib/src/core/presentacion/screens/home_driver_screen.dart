@@ -54,11 +54,12 @@ class HomeDriverScreen extends ConsumerWidget {
                       GestureDetector(
                         onTap: () {
                           showCupertinoDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const AlertDialogLogoutWidget();
-                              });
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const AlertDialogLogoutWidget();
+                            },
+                          );
                         },
                         child: const Icon(Icons.logout_outlined),
                       ),
@@ -79,7 +80,7 @@ class HomeDriverScreen extends ConsumerWidget {
                   size: 35,
                 ),
                 onClick: () {
-                  context.push('/orderClient', extra: 0);
+                  context.push('/orderDriver', extra: 0);
                   // context.goNamed('orderClient', params: {'initView': "1"});
                 },
               ),

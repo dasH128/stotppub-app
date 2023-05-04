@@ -33,6 +33,7 @@ class AlertDialogLogoutWidget extends StatelessWidget {
           onPressed: () async {
             final storage = LocalStorage('my_data.json');
             await storage.setItem('userType', '');
+            await storage.setItem('idUser', '');
             await storage.setItem('isLogged', false);
             context.pushReplacement('/');
           },

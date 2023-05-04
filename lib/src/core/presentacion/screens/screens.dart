@@ -1,3 +1,6 @@
+export 'package:stotppub/src/core/presentacion/screens/show_perishable_widget.dart';
+export 'package:stotppub/src/core/presentacion/screens/orders_driver_screen.dart';
+
 export 'package:stotppub/src/core/presentacion/screens/profile_info_client_screen.dart';
 export 'package:stotppub/src/core/presentacion/screens/profile_info_driver_screen.dart';
 export 'package:stotppub/src/core/presentacion/screens/profile_info_vehicle_screen.dart';
