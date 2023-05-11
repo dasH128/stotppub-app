@@ -171,6 +171,15 @@ class LoginContainer extends ConsumerWidget {
     return Container(
       child: Column(
         children: [
+          Container(
+            padding: EdgeInsets.only(top: 16),
+            child: Text(
+              'BlockTrace',
+              style: TextStyle(
+                fontSize: 38,
+              ),
+            ),
+          ),
           Expanded(
             child: Stack(
               children: [

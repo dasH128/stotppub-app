@@ -112,6 +112,16 @@ class RegisterOrderFormNotifier extends StateNotifier<RegisterOrderFormEntity> {
     state = newState;
   }
 
+  setLat(double value) {
+    final newState = state.copy(lat: value);
+    state = newState;
+  }
+
+  setLng(double value) {
+    final newState = state.copy(lng: value);
+    state = newState;
+  }
+
   Future<ResponseData<RegisterClientFormEntity>> findClientByDni() async {
     CollectionReference db =
         await FirebaseFirestore.instance.collection('clientes');
@@ -127,6 +137,7 @@ class RegisterOrderFormNotifier extends StateNotifier<RegisterOrderFormEntity> {
           dni: doc['dni'] ?? '',
           name: doc['name'] ?? '',
           lastName: doc['lastName'] ?? '',
+          phone: doc['phone'] ?? '',
         );
       }).toList();
 
@@ -144,7 +155,7 @@ class RegisterOrderFormNotifier extends StateNotifier<RegisterOrderFormEntity> {
     CollectionReference db = FirebaseFirestore.instance.collection('order');
 
     showData();
-    final order = <String, String>{
+    final order = <String, dynamic>{
       'id': '',
       'idClient': state.idClient,
       'idDriver': state.idDriver,
@@ -155,7 +166,10 @@ class RegisterOrderFormNotifier extends StateNotifier<RegisterOrderFormEntity> {
       'date': state.date,
       'product': state.product,
       'quantity': state.quantity,
-      'state': state.state ?? 'PROCESO', // TODO revisar
+      'state': 'PROCESO', //state.state ?? 'PROCESO', // TODO revisar,
+      'createdAt': Timestamp.now(),
+      'lat': state.lat,
+      'lng': state.lng,
     };
     try {
       DocumentReference createOrder = await db.add(order);
@@ -176,5 +190,10 @@ class RegisterOrderFormNotifier extends StateNotifier<RegisterOrderFormEntity> {
     print(state.address);
     print(state.phone);
     print(state.dni);
+  }
+
+  String getDateInText() {
+    DateTime d = DateTime.now();
+    return '${d.day}/${d.month}/${d.year}';
   }
 }

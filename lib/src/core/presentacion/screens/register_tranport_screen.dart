@@ -151,7 +151,7 @@ class _FormRuc extends ConsumerWidget {
     return TextFormFieldCustom1(
       initialValue: notifierForm.state.ruc,
       prefixIcon: const Icon(Icons.reduce_capacity),
-      hint: 'Ingrese Ruc',
+      hint: 'Ingrese DNI',
       onChanged: (value) {
         notifierForm.setRuc(value);
       },

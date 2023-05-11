@@ -31,7 +31,10 @@ class ProfileInfoClientScreenState
     _notifierForm.state.lastName = widget.client!.lastName;
     _notifierForm.state.phone = widget.client!.phone;
     _notifierForm.state.address = widget.client!.address;
-
+    print('profile ${_notifierForm.state.name}');
+    print('profile ${_notifierForm.state.lastName}');
+    print('profile ${_notifierForm.state.phone}');
+    print('profile ${_notifierForm.state.address}');
     //_notifierForm.setName(widget.client!.name);
     //_notifierForm.setLastName(widget.client!.lastName);
     //_notifierForm.setPhone(widget.client!.phone);

@@ -10,6 +10,7 @@ class ProfileScreen extends ConsumerStatefulWidget {
   @override
   ProfileScreenState createState() => ProfileScreenState();
 }
+
 // TODO ver en perfil cliente
 class ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
@@ -72,6 +73,7 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
                     ),
                     const SizedBox(height: 15),
                     TextFormFieldCustom1(
+                      enabled: false,
                       label: 'Nombre',
                       initialValue: snapshot.data?['name'],
                     ),
@@ -118,19 +120,25 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
             .get();
       } else {
         queryData = await instanceDB
-            .collection('collectionPath')
+            .collection('clientes')
             .limit(1)
             .where('id', isEqualTo: id)
             .get();
       }
       //Map<String, String>
       List<Map<String, String>> userInfo = queryData.docs.map((doc) {
+        var number = '';
+        if (userType == 'driver') {
+          number = (doc['number'] ?? '') as String;
+        } else {
+          number = (doc['phone'] ?? '') as String;
+        }
         print(doc);
         return {
           'name': (doc['name'] ?? '') as String,
           'lastName': (doc['lastName'] ?? '') as String,
           'address': (doc['address'] ?? '') as String,
-          'number': (doc['number'] ?? '') as String,
+          'number': number, //(doc['number'] ?? '') as String,
           'email': (doc['email'] ?? '') as String,
         };
       }).toList();

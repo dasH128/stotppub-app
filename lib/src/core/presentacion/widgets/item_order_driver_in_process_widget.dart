@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 
 class ItemOrderDriverInProcessWidget extends StatelessWidget {
   final String product;
@@ -61,6 +64,8 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('Nº de envio:'),
                         Text(numberOrder),
@@ -69,6 +74,7 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
                     const Icon(Icons.copy),
                   ],
                 ),
+                const SizedBox(height: 10),
                 const Text('Fecha de entrega estimada:'),
                 Text(estimatedDate),
                 const SizedBox(height: 10),
@@ -86,8 +92,30 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
                 ),
                 Center(
                   child: OutlinedButton(
-                    onPressed: () {},
-                    child: const Text('VER RECORRIDO DEL ENVIO'),
+                    onPressed: () async {
+                      try {
+                        GeolocatorPlatform _geolocatorPlatform =
+                            GeolocatorPlatform.instance;
+                        Position pos =
+                            await _geolocatorPlatform.getCurrentPosition();
+                        CollectionReference db =
+                            FirebaseFirestore.instance.collection('order');
+                        await db.doc(numberOrder).update({
+                          "latOrigen": pos.latitude,
+                          "lngOrigen": pos.longitude,
+                          "isStart": true,
+                        });
+                        Map<String, dynamic> mapa = {
+                          "latOrigen": pos.latitude,
+                          "lngOrigen": pos.longitude,
+                          "idOrden": numberOrder,
+                        };
+                        context.push('/rutaDriver', extra: mapa);
+                      } catch (e) {
+                        print(e.toString());
+                      }
+                    },
+                    child: const Text('COMENZAR'),
                   ),
                 ),
               ],

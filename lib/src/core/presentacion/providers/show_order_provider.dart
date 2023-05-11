@@ -58,7 +58,46 @@ final allOrdersFinalizedByDriverIdProvider =
 
     var orders = await db
         .where('state', isEqualTo: 'TERMINADO')
-        .where('idDriver', isGreaterThan: idDriver)
+        .where('idDriver', isEqualTo: idDriver)
+        .get();
+    print(orders);
+    return orders.docs;
+  } catch (e) {
+    print('error ${e.toString()}');
+    return [];
+  }
+});
+
+final allOrdersProcesByClientIdProvider =
+    FutureProvider<List<QueryDocumentSnapshot>>((ref) async {
+  CollectionReference db = FirebaseFirestore.instance.collection("order");
+  try {
+    final storage = LocalStorage('my_data.json');
+    String idClient = await storage.getItem('idUser');
+
+    var orders = await db
+        .where('state', isEqualTo: 'PROCESO')
+        .where('idClient', isEqualTo: idClient)
+        .get();
+    print(orders);
+    return orders.docs;
+  } catch (e) {
+    print('error ${e.toString()}');
+    return [];
+  }
+});
+
+final allOrdersFinalizedByClientIdProvider =
+    FutureProvider<List<QueryDocumentSnapshot>>((ref) async {
+  CollectionReference db = await FirebaseFirestore.instance.collection("order");
+
+  try {
+    final storage = LocalStorage('my_data.json');
+    String idClient = await storage.getItem('idUser');
+    print('buscar--- $idClient TERMINADO');
+    var orders = await db
+        .where('state', isEqualTo: 'TERMINADO')
+        .where('idClient', isEqualTo: idClient)
         .get();
     print(orders);
     return orders.docs;

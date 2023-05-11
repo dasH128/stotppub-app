@@ -1,9 +1,11 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:stotppub/src/core/data/entity/entity.dart';
+import 'package:stotppub/src/core/delegate/search_perecedero_delegate.dart';
 import 'package:stotppub/src/core/presentacion/providers/register_order_provider.dart';
 import 'package:stotppub/src/core/presentacion/widgets/snackbar_widget.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
@@ -17,10 +19,13 @@ class RegisterOrderScreen extends ConsumerStatefulWidget {
 
 class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
   late PageController pageController;
+  final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
   String codigoCreado = '';
   @override
   void initState() {
     super.initState();
+    // final position = await _geolocatorPlatform.getCurrentPosition();
+    // print(position);
     pageController = PageController(
       initialPage: 0,
       keepPage: true,
@@ -59,6 +64,7 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
             physics: const NeverScrollableScrollPhysics(),
             controller: pageController,
             children: [
+              //pageViewUbication(ref),
               pageViewContentData(ref),
               pageViewContentTransportAsignar(ref),
               pageViewContentVehicleAsignar(ref),
@@ -70,9 +76,41 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
     );
   }
 
+  Widget pageViewUbication(WidgetRef ref) {
+    const CameraPosition _positionCamera = CameraPosition(
+      target: LatLng(
+        37.42796133580664,
+        -122.085749655962,
+      ),
+      zoom: 14.4746,
+    );
+    return Stack(
+      children: [
+        Container(
+          padding: EdgeInsetsDirectional.symmetric(horizontal: 15, vertical: 5),
+          color: Colors.red,
+          child: GestureDetector(
+            onTap: () async {
+              print('onTap');
+            },
+            child: Container(
+              child: Text('ubicación'),
+            ),
+          ),
+        ),
+        const GoogleMap(
+          mapType: MapType.normal,
+          mapToolbarEnabled: true,
+          initialCameraPosition: _positionCamera,
+        ),
+      ],
+    );
+  }
+
   Widget pageViewContentData(WidgetRef ref) {
     RegisterOrderFormNotifier notifier =
         ref.watch(registerOrderStateNotifierProvider.notifier);
+    var myProduct = ref.watch(registerOrderStateNotifierProvider).product;
     return Container(
       child: SingleChildScrollView(
         child: Column(
@@ -84,7 +122,7 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
                     initialValue: notifier.state.idClient,
                     prefixIcon:
                         const Icon(Icons.align_horizontal_right_outlined),
-                    hint: 'Ingrese DNI cliente',
+                    hint: 'Ingrese RUC cliente',
                     onChanged: (value) {
                       notifier.setDNI(value);
                     },
@@ -114,6 +152,8 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
                         ScaffoldMessenger.of(ref.context)
                             .showSnackBar(snackBar);
                         notifier.setIdClient(data.data!.id!);
+                        print('telll ${data.data!.toString()}');
+                        notifier.setPhone(data.data!.phone);
                       }
                     },
                   ),
@@ -124,42 +164,70 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
             //TODO:
             //vincular con el dato del usuario
             TextFormFieldCustom1(
-              initialValue: notifier.state.phone,
-              prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
-              hint: 'Ingrese telefono',
-              onChanged: (value) {
-                notifier.setPhone(value);
-              },
+              enabled: false,
+              // initialValue: notifier.state.phone,
+              prefixIcon: const Icon(Icons.phone),
+              hint: (notifier.state.phone.length == 0)
+                  ? 'Teléfono cliente'
+                  : notifier.state.phone,
+              // onChanged: (value) {
+              //   notifier.setPhone(value);
+              // },
             ),
             const SizedBox(height: 15),
             //TODO
             // buscar por el nombre no GPS
-            TextFormFieldCustom1(
-              initialValue: notifier.state.address,
-              prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
-              hint: 'Ingrese Direcciçon',
-              onChanged: (value) {
-                notifier.setAddress(value);
+            GestureDetector(
+              onTap: () async {
+                SearchDestinationMapBox? dataUbication =
+                    await ref.context.push('/searchDestination');
+                if (dataUbication == null) {
+                  print('dataUbication nula');
+                  return;
+                }
+                print('dataUbication ${dataUbication.lat.toString()}');
+                print('dataUbication ${dataUbication.lng.toString()}');
+                print('dataUbication ${dataUbication.text.toString()}');
+                // print('ft es');
+                // print(ft);
+                // print('-------');
+                notifier.setLat(dataUbication.lat);
+                notifier.setLng(dataUbication.lng);
+
+                notifier
+                    .setAddress('${dataUbication.lat};${dataUbication.lng}');
+              },
+              child: TextFormFieldCustom1(
+                enabled: false,
+                // initialValue: notifier.state.address,
+                prefixIcon: const Icon(Icons.house),
+                hint: (notifier.state.address.length == 0)
+                    ? 'Ingrese Dirección'
+                    : notifier.state.address,
+                onChanged: (value) {
+                  notifier.setAddress(value);
+                },
+              ),
+            ),
+            const SizedBox(height: 15),
+            TextDateCustom1Widget(
+              value: notifier.state.date,
+              prefixIcon: const Icon(Icons.calendar_month),
+              onTap: () async {
+                DateTime? data = await showDatePicker(
+                  helpText: 'Ingrese Fecha',
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2024),
+                );
+                if (data == null) return;
+                print(data.toUtc());
+                notifier.setDate('${data.day}/${data.month}/${data.year}');
               },
             ),
             const SizedBox(height: 15),
-            TextFormFieldCustom1(
-              initialValue: notifier.state.date,
-              prefixIcon: const Icon(Icons.date_range),
-              hint: 'Ingrese Fecha',
-              onChanged: (value) {
-                notifier.setDate(value);
-              },
-            ),
-            const SizedBox(height: 15),
-            TextFormFieldCustom1(
-              initialValue: notifier.state.product,
-              prefixIcon: const Icon(Icons.production_quantity_limits),
-              hint: 'Ingrese Producto',
-              onChanged: (value) {
-                notifier.setProduct(value);
-              },
-            ),
+            TextFormProductWidget(notifier: notifier, myProduct: myProduct),
             const SizedBox(height: 15),
             TextFormFieldCustom1(
               initialValue: notifier.state.quantity,
@@ -355,6 +423,39 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
             },
           )
         ],
+      ),
+    );
+  }
+}
+
+class TextFormProductWidget extends ConsumerWidget {
+  const TextFormProductWidget({
+    super.key,
+    required this.notifier,
+    required this.myProduct,
+  });
+
+  final RegisterOrderFormNotifier notifier;
+  final String myProduct;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // RegisterOrderFormNotifier notifierForm =
+    //     ref.watch(registerOrderStateNotifierProvider.notifier);
+
+    // String product = ref.watch(registerOrderStateNotifierProvider).product;
+    print('build ${notifier.state.product}');
+    return GestureDetector(
+      onTap: () async {
+        var per = await showSearch(
+            context: context, delegate: SearchPerecederoDelegate(ref: ref));
+        if (per == null) return;
+        notifier.setProduct(per.name);
+      },
+      child: TextFormFieldCustom1(
+        enabled: false,
+        prefixIcon: const Icon(Icons.production_quantity_limits),
+        hint: (myProduct.isEmpty) ? 'Ingrese Perecedero' : myProduct,
       ),
     );
   }

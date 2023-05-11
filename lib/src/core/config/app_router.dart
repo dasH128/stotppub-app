@@ -153,5 +153,18 @@ final appRouter = GoRouter(
       name: 'route',
       builder: (context, state) => const RouteScreen(),
     ),
+    
+    GoRoute(
+      path: '/searchDestination',
+      name: 'searchDestination',
+      builder: (context, state) => const SearchDestinationScreen(),
+    ),
+    GoRoute(
+      path: '/rutaDriver',
+      name: 'rutaDriver',
+      builder: (context, state) => RutaDriverScreen(
+        mapa:(state.extra as Map<String, dynamic>),
+      ),
+    ),
   ],
 );

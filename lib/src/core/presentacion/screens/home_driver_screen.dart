@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/presentacion/providers/show_order_provider.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
 class HomeDriverScreen extends ConsumerWidget {
@@ -80,6 +81,8 @@ class HomeDriverScreen extends ConsumerWidget {
                   size: 35,
                 ),
                 onClick: () {
+                  ref.refresh(allOrdersFinalizedByDriverIdProvider);
+                  ref.refresh(allOrdersProcesByDriverIdProvider);
                   context.push('/orderDriver', extra: 0);
                   // context.goNamed('orderClient', params: {'initView': "1"});
                 },

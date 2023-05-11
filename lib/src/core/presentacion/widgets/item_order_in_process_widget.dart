@@ -61,6 +61,7 @@ class ItemOrderInProcessWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('Nº de envio:'),
                         Text(numberOrder),

@@ -90,12 +90,12 @@ class ItemOrderDriverDeliveredWidget extends StatelessWidget {
                 const SizedBox(height: 10),
                 const Text('Transportista'),
                 Text(nameTransport),
-                const SizedBox(height: 10),
-                const Text('Placa de camión'),
-                Text(propertyCard),
-                const SizedBox(height: 10),
-                const Text('Tipo de perecedero'),
-                Text(typePerishable),
+                // const SizedBox(height: 10),
+                // const Text('Placa de camión'),
+                // Text(propertyCard),
+                // const SizedBox(height: 10),
+                // const Text('Tipo de perecedero'),
+                // Text(typePerishable),
                 const SizedBox(height: 10),
                 Center(
                   child: OutlinedButton(

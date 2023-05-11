@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/data/entity/entity.dart';
+import 'package:stotppub/src/core/presentacion/providers/show_order_provider.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -59,52 +62,153 @@ class TabView01 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var all = ref.watch(allOrdersProcesByClientIdProvider);
+
     return Container(
-      child: ListView.builder(
-        itemCount: 3,
-        itemBuilder: (BuildContext context, int index) {
-          return const ItemOrderInProcessWidget(
-            orderDate: 'Lunes 17 / 01 / 2023',
-            product: 'PALTAS',
-            code: 'XXXXX',
-            state: 'En camino',
-            numberOrder: 'xxxxxxxxxxx',
-            estimatedDate: '02/12/2023',
-            address: 'Av. xxxxxxxxxxxxx',
-            nameTransport: 'Pedro Gonzales',
-          );
+      child: all.when(
+        data: (data) {
+          if (data.length == 0) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('No tiene ninguna orden en PROCESO'),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 16,
+                    left: 16,
+                    right: 16,
+                  ),
+                  child: ButtonCustom1Widget(
+                    text: 'ATRAS',
+                    onPressed: () {
+                      ref.context.pop();
+                    },
+                  ),
+                ),
+              ],
+            );
+          }
+
+          List<RegisterOrderFormEntity> orders = data.map((doc) {
+            Timestamp t = doc['createdAt'] as Timestamp;
+            return RegisterOrderFormEntity(
+              id: doc['id'] ?? '',
+              state: doc['state'] ?? 'FAKE',
+              product: doc['product'] ?? 'FAKE P',
+              quantity: doc['quantity'] ?? 'FAKE Q',
+              address: doc['address'] ?? 'FAKE Q',
+              date: doc['date'],
+              createdAt:
+                  '${t.toDate().day}/${t.toDate().month}/${t.toDate().year}',
+            );
+          }).toList();
+
+          return ListView.builder(
+              itemCount: orders.length,
+              itemBuilder: (_, int i) {
+                // return ItemOrderDriverInProcessWidget(
+                //   orderDate: orders[i].createdAt ?? '',
+                //   product: orders[i].product,
+                //   code: 'XXXXX',
+                //   state: 'En camino',
+                //   numberOrder: orders[i].id ?? 'id',
+                //   estimatedDate: orders[i].date,
+                //   address: orders[i].address,
+                //   nameTransport: 'Pedro Gonzales',
+                // );
+                return ItemOrderInProcessWidget(
+                  orderDate: orders[i].createdAt ?? '',
+                  product: orders[i].product.toUpperCase(),
+                  code: 'XXXXX',
+                  state: 'En camino',
+                  numberOrder: orders[i].id ?? 'id',
+                  estimatedDate: orders[i].date,
+                  address: orders[i].address,
+                  nameTransport: 'Pedro Gonzales',
+                );
+              });
         },
+        error: (e, _) => Text('Hubo un error ${e.toString()}'),
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
     );
   }
 }
 
-class TabView02 extends StatelessWidget {
+class TabView02 extends ConsumerWidget {
   const TabView02({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var all = ref.watch(allOrdersFinalizedByClientIdProvider);
     return Container(
-      child: ListView.builder(
-        itemCount: 3,
-        itemBuilder: (BuildContext context, int index) {
-          return const ItemOrderDeliveredWidget(
-            orderDate: 'Lunes 17 / 01 / 2023',
-            product: 'PALTAS',
-            code: 'XXXXX',
-            state: 'En camino',
-            numberOrder: 'xxxxxxxxxxx',
-            estimatedDate: '02/12/2023',
-            address: 'Av. xxxxxxxxxxxxx',
-            nameClient: 'Valeria Nathaly Collazo',
-            nameTransport: 'Pedro Gonzales',
-            propertyCard: 'KDF -123',
-            typePerishable: 'Fruta',
-          );
+      child: all.when(
+        data: (data) {
+          if (data.length == 0) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('No tiene ninguna orden en PROCESO'),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 16,
+                    left: 16,
+                    right: 16,
+                  ),
+                  child: ButtonCustom1Widget(
+                    text: 'ATRAS',
+                    onPressed: () {
+                      ref.context.pop();
+                    },
+                  ),
+                ),
+              ],
+            );
+          }
+
+          List<RegisterOrderFormEntity> orders = data.map((doc) {
+            Timestamp t = doc['createdAt'] as Timestamp;
+            return RegisterOrderFormEntity(
+              id: doc['id'] ?? '',
+              state: doc['state'] ?? 'FAKE',
+              product: doc['product'] ?? 'FAKE P',
+              quantity: doc['quantity'] ?? 'FAKE Q',
+              address: doc['address'] ?? 'FAKE Q',
+              date: doc['date'],
+              createdAt:
+                  '${t.toDate().day}/${t.toDate().month}/${t.toDate().year}',
+            );
+          }).toList();
+
+          return ListView.builder(
+              itemCount: orders.length,
+              itemBuilder: (_, int i) {
+                return ItemOrderDeliveredWidget(
+                  orderDate: orders[i].createdAt ?? '',
+                  product: orders[i].product.toUpperCase(),
+                  code: 'XXXXX',
+                  state: 'Entregado',
+                  numberOrder: orders[i].id ?? 'id',
+                  estimatedDate: orders[i].date,
+                  address: orders[i].address,
+                  nameTransport: 'Alan',
+                  nameClient: '',
+                  propertyCard: '',
+                  typePerishable: '',
+                );
+              });
+        
         },
+        error: (e, _) => Text('Hubo un error ${e.toString()}'),
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
     );
+
   }
 }

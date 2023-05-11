@@ -8,6 +8,7 @@ class RegisterClientFormEntity {
   String email;
   String password;
 
+  
   RegisterClientFormEntity({
     this.id,
     this.name = '',
@@ -39,4 +40,8 @@ class RegisterClientFormEntity {
         email: email ?? this.email,
         password: password ?? this.password,
       );
+  @override
+  String toString() {
+    return 'id:$id - n:$name - l:$lastName - p:$phone - d:$dni - a:$address -e:$email';
+  }
 }

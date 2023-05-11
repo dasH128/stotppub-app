@@ -36,6 +36,9 @@ class ItemOrderDeliveredWidget extends StatelessWidget {
         color: Colors.black12,
       ),
       child: ExpansionTile(
+        onExpansionChanged: (value) {
+          print('value essssss $value');
+        },
         title: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,8 +68,10 @@ class ItemOrderDeliveredWidget extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('Nº de envio:'),
                         Text(numberOrder),
@@ -84,18 +89,18 @@ class ItemOrderDeliveredWidget extends StatelessWidget {
                 const SizedBox(height: 10),
                 const Text('Lugar de destino'),
                 Text(address),
-                const SizedBox(height: 10),
-                const Text('Cliente'),
-                Text(nameClient),
-                const SizedBox(height: 10),
-                const Text('Transportista'),
-                Text(nameTransport),
-                const SizedBox(height: 10),
-                const Text('Placa de camión'),
-                Text(propertyCard),
-                const SizedBox(height: 10),
-                const Text('Tipo de perecedero'),
-                Text(typePerishable),
+                // const SizedBox(height: 10),
+                // const Text('Cliente'),
+                // Text(nameClient),
+                // const SizedBox(height: 10),
+                // const Text('Transportista'),
+                // Text(nameTransport),
+                // const SizedBox(height: 10),
+                // const Text('Placa de camión'),
+                // Text(propertyCard),
+                // const SizedBox(height: 10),
+                // const Text('Tipo de perecedero'),
+                // Text(typePerishable),
                 const SizedBox(height: 10),
                 Center(
                   child: OutlinedButton(

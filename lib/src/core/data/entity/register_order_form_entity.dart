@@ -11,6 +11,10 @@ class RegisterOrderFormEntity {
   String product;
   String quantity;
   String? state;
+  String? createdAt;
+
+  double? lat;
+  double? lng;
 
   RegisterOrderFormEntity({
     this.id,
@@ -25,6 +29,9 @@ class RegisterOrderFormEntity {
     this.product = '',
     this.quantity = '',
     this.state = 'PROCESO',
+    this.createdAt = '',
+    this.lat = 0.0,
+    this.lng = 0.0,
   });
 
   RegisterOrderFormEntity copy({
@@ -40,6 +47,9 @@ class RegisterOrderFormEntity {
     String? product,
     String? quantity,
     String? state,
+    String? createdAt,
+    double? lat,
+    double? lng,
   }) =>
       RegisterOrderFormEntity(
         id: id ?? this.id,
@@ -54,5 +64,8 @@ class RegisterOrderFormEntity {
         product: product ?? this.product,
         quantity: quantity ?? this.quantity,
         state: state ?? this.state,
+        createdAt: createdAt ?? this.createdAt,
+        lat: lat ?? this.lat,
+        lng: lng ?? this.lng,
       );
 }

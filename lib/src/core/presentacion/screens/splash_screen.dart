@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const [
             Text(
-              'STOTPPUB',
+              'BlockTrace',
               style: TextStyle(
                 fontSize: 38,
               ),

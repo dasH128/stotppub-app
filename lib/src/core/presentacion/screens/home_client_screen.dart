@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/presentacion/providers/show_order_provider.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
 class HomeClientScreen extends ConsumerWidget {
@@ -79,7 +80,9 @@ class HomeClientScreen extends ConsumerWidget {
                   size: 35,
                 ),
                 onClick: () {
-                  context.push('/orderClient', extra: 0);
+                  ref.refresh(allOrdersFinalizedByClientIdProvider);
+                  ref.refresh(allOrdersProcesByClientIdProvider);
+                  context.push('/orderClient', extra: 0); //dashito
                   // context.goNamed('orderClient', params: {'initView': "1"});
                 },
               ),

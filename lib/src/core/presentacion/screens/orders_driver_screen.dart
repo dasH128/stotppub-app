@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/data/entity/entity.dart';
 import 'package:stotppub/src/core/presentacion/providers/show_order_provider.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
@@ -63,19 +66,76 @@ class TabOrdersFinalizedByDriver extends ConsumerWidget {
     return Container(
       child: all.when(
         data: (data) {
+          if (data.length == 0) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('No tiene ninguna orden entregada'),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 16,
+                    left: 16,
+                    right: 16,
+                  ),
+                  child: ButtonCustom1Widget(
+                    text: 'ATRAS',
+                    onPressed: () {
+                      ref.context.pop();
+                    },
+                  ),
+                ),
+              ],
+            );
+          }
+          List<RegisterOrderFormEntity> orders = data.map((doc) {
+            Timestamp t = doc['createdAt'] as Timestamp;
+            return RegisterOrderFormEntity(
+              id: doc['id'] ?? '',
+              state: doc['state'] ?? 'FAKE',
+              product: doc['product'] ?? 'FAKE P',
+              quantity: doc['quantity'] ?? 'FAKE Q',
+              date: doc['date'],
+              createdAt:
+                  '${t.toDate().day}/${t.toDate().month}/${t.toDate().year}',
+            );
+          }).toList();
           return ListView.builder(
-              itemCount: 6,
+              itemCount: orders.length,
               itemBuilder: (_, int i) {
-                return const ItemOrderDriverInProcessWidget(
-                  orderDate: 'Lunes 17 / 01 / 2023',
-                  product: 'PALTAS',
+                // return ItemOrderDriverInProcessWidget(
+                //   orderDate: orders[i].createdAt ?? '',
+                //   product: orders[i].product,
+                //   code: 'XXXXX',
+                //   state: 'En Finalizado',
+                //   numberOrder: orders[i].id ?? 'id',
+                //   estimatedDate: orders[i].date,
+                //   address: orders[i].address,
+                //   nameTransport: 'Pedro Gonzales',
+                // );
+                return ItemOrderDriverDeliveredWidget(
+                  product: orders[i].product,
                   code: 'XXXXX',
-                  state: 'En camino',
-                  numberOrder: 'xxxxxxxxxxx',
-                  estimatedDate: '02/12/2023',
-                  address: 'Av. xxxxxxxxxxxxx',
-                  nameTransport: 'Pedro Gonzales',
+                  state: 'En Finalizado',
+                  numberOrder: orders[i].id ?? 'id',
+                  orderDate: orders[i].createdAt ?? '',
+                  estimatedDate: orders[i].date,
+                  address: orders[i].address,
+                  nameClient: 'nameClient',
+                  nameTransport: 'nameTransport',
+                  propertyCard: 'propertyCard',
+                  typePerishable: 'typePerishable',
                 );
+
+                //   return Widget(
+                //   orderDate: orders[i].createdAt ?? '',
+                //   product: orders[i].product,
+                //   code: 'XXXXX',
+                //   state: 'En Finalizado',
+                //   numberOrder: orders[i].id ?? 'id',
+                //   estimatedDate: orders[i].date,
+                //   address: orders[i].address,
+                //   nameTransport: 'Pedro Gonzales',
+                // );
               });
         },
         error: (e, _) => Text('Hubo un error ${e.toString()}'),
@@ -95,20 +155,57 @@ class TabOrdersProcesByDriver extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var all = ref.watch(allOrdersProcesByDriverIdProvider);
+
     return Container(
       child: all.when(
         data: (data) {
+          if (data.length == 0) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('No tiene ninguna orden en PROCESO'),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 16,
+                    left: 16,
+                    right: 16,
+                  ),
+                  child: ButtonCustom1Widget(
+                    text: 'ATRAS',
+                    onPressed: () {
+                      ref.context.pop();
+                    },
+                  ),
+                ),
+              ],
+            );
+          }
+          List<RegisterOrderFormEntity> orders = data.map((doc) {
+            Timestamp t = doc['createdAt'] as Timestamp;
+
+            return RegisterOrderFormEntity(
+              id: doc['id'] ?? '',
+              state: doc['state'] ?? 'FAKE',
+              product: doc['product'] ?? 'FAKE P',
+              quantity: doc['quantity'] ?? 'FAKE Q',
+              address: doc['address'] ?? 'FAKE Q',
+              date: doc['date'],
+              createdAt:
+                  '${t.toDate().day}/${t.toDate().month}/${t.toDate().year}',
+            );
+          }).toList();
+
           return ListView.builder(
-              itemCount: 6,
+              itemCount: orders.length,
               itemBuilder: (_, int i) {
-                return const ItemOrderDriverInProcessWidget(
-                  orderDate: 'Lunes 17 / 01 / 2023',
-                  product: 'PALTAS',
+                return ItemOrderDriverInProcessWidget(
+                  orderDate: orders[i].createdAt ?? '',
+                  product: orders[i].product,
                   code: 'XXXXX',
                   state: 'En camino',
-                  numberOrder: 'xxxxxxxxxxx',
-                  estimatedDate: '02/12/2023',
-                  address: 'Av. xxxxxxxxxxxxx',
+                  numberOrder: orders[i].id ?? 'id',
+                  estimatedDate: orders[i].date,
+                  address: orders[i].address,
                   nameTransport: 'Pedro Gonzales',
                 );
               });
