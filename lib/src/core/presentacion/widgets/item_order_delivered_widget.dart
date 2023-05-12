@@ -56,7 +56,7 @@ class ItemOrderDeliveredWidget extends StatelessWidget {
             const SizedBox(height: 5),
             const Divider(height: 2),
             const SizedBox(height: 10),
-            Text('$product - $code '),
+            Text('$product - ${code.substring(0, 5)} '),
             const Text('En sucursal'),
           ],
         ),
@@ -105,7 +105,7 @@ class ItemOrderDeliveredWidget extends StatelessWidget {
                 Center(
                   child: OutlinedButton(
                     onPressed: () {},
-                    child: Text('RUTA'),
+                    child: Text('VER RECORRIDO DEL ENVÍO'),
                   ),
                 ),
               ],

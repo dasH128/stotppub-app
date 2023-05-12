@@ -97,7 +97,7 @@ class ProfileInfoDriverScreenState
                   const SizedBox(height: 10),
                   TextFormFieldCustom1(
                     prefixIcon: const Icon(Icons.phone),
-                    label: 'Telefono',
+                    label: 'Teléfono',
                     initialValue: notifierForm.state.number,
                     onChanged: (value) {
                       notifierForm.setNumber(value);
@@ -106,7 +106,7 @@ class ProfileInfoDriverScreenState
                   const SizedBox(height: 10),
                   TextFormFieldCustom1(
                     prefixIcon: const Icon(Icons.add_card_outlined),
-                    label: 'Licensia',
+                    label: 'Licencia',
                     initialValue: notifierForm.state.licenseNumber,
                     onChanged: (value) {
                       // widget.driver?.licenseNumber = value;

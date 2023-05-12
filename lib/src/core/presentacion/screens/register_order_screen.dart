@@ -271,10 +271,11 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
             List<RegisterTransportFormEntity> transports = data.map(
               (doc) {
                 return RegisterTransportFormEntity(
-                  name: doc["name"],
-                  lastName: doc["lastName"],
-                  id: doc['id'],
-                );
+                    name: doc["name"],
+                    lastName: doc["lastName"],
+                    id: doc['id'],
+                    licenseNumber: doc['licenseNumber'],
+                    categoryLicense: doc['categoryLicense']);
               },
             ).toList();
             if (transports.isEmpty) {

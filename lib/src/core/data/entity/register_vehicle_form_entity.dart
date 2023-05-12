@@ -6,7 +6,7 @@ class RegisterVehicleFormEntity {
   String width;
   String long;
   bool hasRefrigeration;
-  String hasSure;
+  bool hasSure;
   String hasSoat;
 
   RegisterVehicleFormEntity({
@@ -17,7 +17,7 @@ class RegisterVehicleFormEntity {
     this.width = '',
     this.long = '',
     this.hasRefrigeration = false,
-    this.hasSure = '',
+    this.hasSure = false,
     this.hasSoat = '',
   });
 
@@ -29,7 +29,7 @@ class RegisterVehicleFormEntity {
     String? width,
     String? long,
     bool? hasRefrigeration,
-    String? hasSure,
+    bool? hasSure,
     String? hasSoat,
   }) =>
       RegisterVehicleFormEntity(

@@ -30,7 +30,7 @@ class ItemShipmentWidget extends StatelessWidget {
         ),
         child: ListTile(
           title: Text(title),
-          subtitle: Text('$code - $state'),
+          subtitle: Text('N° Orden: ${code.substring(0, 8)} '),
           trailing: const Icon(Icons.details_rounded),
         ),
       ),

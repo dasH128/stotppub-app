@@ -41,6 +41,7 @@ class ProfileInfoVehicleScreenState
         ref.watch(registerVehicleStateNotifierProvider.notifier);
     bool refrigeration =
         ref.watch(registerVehicleStateNotifierProvider).hasRefrigeration;
+    bool sure = ref.watch(registerVehicleStateNotifierProvider).hasSure;
     print('refrigeration is $refrigeration');
     return Scaffold(
       appBar: AppBar(
@@ -63,16 +64,16 @@ class ProfileInfoVehicleScreenState
                     prefixIcon: const Icon(Icons.pallet),
                     initialValue: widget.vehicle!.registrationNumber,
                   ),
-                  const SizedBox(height: 10),
-                  TextFormFieldCustom1(
-                    prefixIcon:
-                        const Icon(Icons.align_horizontal_right_outlined),
-                    label: 'Tarjeta de Propiedad',
-                    initialValue: notifierForm.state.propertyCard,
-                    onChanged: (value) {
-                      notifierForm.state.propertyCard = (value);
-                    },
-                  ),
+                  // const SizedBox(height: 10),
+                  // TextFormFieldCustom1(
+                  //   prefixIcon:
+                  //       const Icon(Icons.align_horizontal_right_outlined),
+                  //   label: 'Tarjeta de Propiedad',
+                  //   initialValue: notifierForm.state.propertyCard,
+                  //   onChanged: (value) {
+                  //     notifierForm.state.propertyCard = (value);
+                  //   },
+                  // ),
                   const SizedBox(height: 10),
                   TextFormFieldCustom1(
                     label: 'Número de ejes',
@@ -104,12 +105,22 @@ class ProfileInfoVehicleScreenState
                     },
                   ),
                   const SizedBox(height: 10),
-                  TextFormFieldCustom1(
-                    label: 'Seguro',
-                    prefixIcon: const Icon(Icons.abc),
-                    initialValue: notifierForm.state.hasSure,
+                  // TextFormFieldCustom1(
+                  //   label: 'Seguro',
+                  //   prefixIcon: const Icon(Icons.abc),
+                  //   initialValue: notifierForm.state.hasSure,
+                  //   onChanged: (value) {
+                  //     notifierForm.state.hasSure = (value);
+                  //   },
+                  // ),
+                  SwitchCustom1Widget(
+                    prefixIcon: const Icon(Icons.soap),
+                    text: 'Seguro',
+                    value: sure,
                     onChanged: (value) {
-                      notifierForm.state.hasSure = (value);
+                      ref
+                          .read(registerVehicleStateNotifierProvider.notifier)
+                          .setHasSure(value);
                     },
                   ),
                   const SizedBox(height: 10),

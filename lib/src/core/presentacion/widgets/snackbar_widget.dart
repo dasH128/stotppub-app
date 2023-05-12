@@ -7,6 +7,7 @@ SnackBar snackBarWidget({
   ContentType? type,
 }) {
   return SnackBar(
+    duration: Duration(seconds: 1),
     elevation: 0,
     behavior: SnackBarBehavior.floating,
     backgroundColor: Colors.transparent,

@@ -9,15 +9,12 @@ class IncidentDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     const CameraPosition _kGooglePlex = CameraPosition(
-      target: LatLng(
-        -77.04881098017553,
-        -11.942563867567344,
-      ),
-      zoom: 14.4746,
+      target: LatLng(-9.484502147032755, -78.27551019958267),
+      zoom: 16.4746,
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detalle'),
+        title: const Text('Detalle'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -25,21 +22,39 @@ class IncidentDetailScreen extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                height: size.height * 0.5,
-                color: Colors.red,
+                height: size.height * 0.62,
+                // color: Colors.red,
                 child: GoogleMap(
-                  mapType: MapType.hybrid,
+                  mapType: MapType.normal,
                   initialCameraPosition: _kGooglePlex,
+                  myLocationEnabled: true,
+                  markers: {
+                    Marker(
+                      markerId: const MarkerId('MarkerId1'),
+                      icon: BitmapDescriptor.defaultMarkerWithHue(
+                        BitmapDescriptor.hueAzure,
+                      ),
+                      position: LatLng(
+                        -9.484502147032755,
+                        -78.27551019958267,
+                      ),
+                    )
+                  },
                 ),
               ),
               Container(
                 width: double.infinity,
-                height: size.height * 0.1,
-                color: Colors.amberAccent,
-                child: Text('INCIDENCIA REPORTADA'),
+                height: size.height * 0.04,
+                color: Colors.amber,
+                child: Center(
+                    child: Text('Derrumbes',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold))),
               ),
+              const SizedBox(height: 8),
               Container(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
                       children: [
@@ -47,7 +62,7 @@ class IncidentDetailScreen extends StatelessWidget {
                             margin: const EdgeInsets.all(16),
                             child: const Icon(Icons.gps_fixed)),
                         const Expanded(
-                          child: Text('LUGAR'),
+                          child: Text('Ctra. Panamericana Nte., 02660'),
                         ),
                       ],
                     ),
@@ -57,17 +72,26 @@ class IncidentDetailScreen extends StatelessWidget {
                             margin: const EdgeInsets.all(16),
                             child: const Icon(Icons.hourglass_bottom)),
                         const Expanded(
-                          child: Text('6: 50 pm'),
+                          child: Text('18:37 pm'),
                         ),
                       ],
                     ),
-                    Text('Descripción'),
-                    Text(
-                        'Deslizamiento de piedras, demora en liberación de la carretera'),
-                    ButtonCustom1Widget(
-                      text: 'LLamar',
-                      onPressed: () {},
-                    )
+                    Row(
+                      children: [
+                        Container(
+                            margin: const EdgeInsets.all(16),
+                            child: const Icon(Icons.report_problem_rounded)),
+                        const Expanded(
+                          child:
+                              Text('Accdiente en puente, trafico de 2 horas'),
+                        ),
+                      ],
+                    ),
+                    // const SizedBox(height: 25),
+                    // ButtonCustom1Widget(
+                    //   text: 'LLamar',
+                    //   onPressed: () {},
+                    // )
                   ],
                 ),
               )

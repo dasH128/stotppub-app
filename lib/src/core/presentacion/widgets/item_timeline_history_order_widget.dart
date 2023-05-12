@@ -34,8 +34,8 @@ class ItemTimeLineHistoryOrderWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('FECHA $date'),
+              Text('HORA $reference'),
               Text('LUGAR $ubication'),
-              Text('HISTORIA $reference'),
             ],
           ),
         ),

@@ -15,6 +15,7 @@ class RegisterOrderFormEntity {
 
   double? lat;
   double? lng;
+  bool? isStart;
 
   RegisterOrderFormEntity({
     this.id,
@@ -32,6 +33,7 @@ class RegisterOrderFormEntity {
     this.createdAt = '',
     this.lat = 0.0,
     this.lng = 0.0,
+    this.isStart = null,
   });
 
   RegisterOrderFormEntity copy({
@@ -50,6 +52,7 @@ class RegisterOrderFormEntity {
     String? createdAt,
     double? lat,
     double? lng,
+    bool? isStart,
   }) =>
       RegisterOrderFormEntity(
         id: id ?? this.id,
@@ -67,5 +70,6 @@ class RegisterOrderFormEntity {
         createdAt: createdAt ?? this.createdAt,
         lat: lat ?? this.lat,
         lng: lng ?? this.lng,
+        isStart: isStart ?? this.isStart,
       );
 }

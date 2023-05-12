@@ -92,6 +92,7 @@ class TabOrdersFinalizedByDriver extends ConsumerWidget {
             return RegisterOrderFormEntity(
               id: doc['id'] ?? '',
               state: doc['state'] ?? 'FAKE',
+              address: doc['address'] ?? 'FAKE',
               product: doc['product'] ?? 'FAKE P',
               quantity: doc['quantity'] ?? 'FAKE Q',
               date: doc['date'],
@@ -120,7 +121,7 @@ class TabOrdersFinalizedByDriver extends ConsumerWidget {
                   orderDate: orders[i].createdAt ?? '',
                   estimatedDate: orders[i].date,
                   address: orders[i].address,
-                  nameClient: 'nameClient',
+                  nameClient: 'Rosario Del Campo Flores',
                   nameTransport: 'nameTransport',
                   propertyCard: 'propertyCard',
                   typePerishable: 'typePerishable',
@@ -180,7 +181,9 @@ class TabOrdersProcesByDriver extends ConsumerWidget {
               ],
             );
           }
-          List<RegisterOrderFormEntity> orders = data.map((doc) {
+
+          List<RegisterOrderFormEntity> orders =
+              data.map((QueryDocumentSnapshot<Object?> doc) {
             Timestamp t = doc['createdAt'] as Timestamp;
 
             return RegisterOrderFormEntity(
@@ -190,6 +193,9 @@ class TabOrdersProcesByDriver extends ConsumerWidget {
               quantity: doc['quantity'] ?? 'FAKE Q',
               address: doc['address'] ?? 'FAKE Q',
               date: doc['date'],
+              isStart: doc.data().toString().contains('isStart')
+                  ? doc.get('isStart')
+                  : null,
               createdAt:
                   '${t.toDate().day}/${t.toDate().month}/${t.toDate().year}',
             );
@@ -201,12 +207,13 @@ class TabOrdersProcesByDriver extends ConsumerWidget {
                 return ItemOrderDriverInProcessWidget(
                   orderDate: orders[i].createdAt ?? '',
                   product: orders[i].product,
-                  code: 'XXXXX',
+                  code: orders[i].id!.substring(0, 5),
                   state: 'En camino',
                   numberOrder: orders[i].id ?? 'id',
                   estimatedDate: orders[i].date,
                   address: orders[i].address,
-                  nameTransport: 'Pedro Gonzales',
+                  nameTransport: 'Rosario Del Campo Flores',
+                  isStart: orders[i].isStart,
                 );
               });
         },

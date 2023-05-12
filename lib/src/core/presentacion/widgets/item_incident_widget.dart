@@ -22,8 +22,8 @@ class ItemIncidentWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-                margin: EdgeInsets.only(left: 16, right: 16),
-                child: const Icon(Icons.indeterminate_check_box)),
+                margin: const EdgeInsets.only(left: 16, right: 16),
+                child: const Icon(Icons.report_problem_rounded)),
             Expanded(child: Text(name)),
           ],
         ),

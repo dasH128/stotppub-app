@@ -94,8 +94,8 @@ class ProfileInfoClientScreenState
                   TextFormFieldCustom1(
                     enabled: false,
                     prefixIcon: const Icon(Icons.run_circle),
-                    label: 'Dni',
-                    initialValue: widget.client?.dni ?? 'dni',
+                    label: 'Ruc',
+                    initialValue: widget.client?.dni ?? 'ruc',
                   ),
                   const SizedBox(height: 10),
                   TextFormFieldCustom1(

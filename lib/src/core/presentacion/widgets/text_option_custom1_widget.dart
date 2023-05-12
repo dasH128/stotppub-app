@@ -85,7 +85,7 @@ class TextOptionCustom1Widget extends StatelessWidget {
               margin: const EdgeInsets.only(right: 8, left: 8),
               child: prefixIcon,
             ),
-            (text == '') ? Text(text) : Text('Categoria: $value')
+            (text == '') ? Text(text) : Text('Categoría: $value')
           ],
         ),
       ),

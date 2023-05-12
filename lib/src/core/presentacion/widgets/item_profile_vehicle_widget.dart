@@ -25,8 +25,8 @@ class ItemProfileVehicleWidget extends StatelessWidget {
         ),
         child: ListTile(
           leading: const Icon(Icons.fire_truck_rounded),
-          title: Text(vehicle.propertyCard),
-          subtitle: Text(vehicle.propertyCard),
+          title: Text('PLACA: ${vehicle.propertyCard}'),
+          subtitle: Text('SOAT: ${vehicle.hasSoat}'),
         ),
       ),
     );

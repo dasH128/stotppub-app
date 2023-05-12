@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ItemOrderInProcessWidget extends StatelessWidget {
   final String product;
@@ -47,7 +48,7 @@ class ItemOrderInProcessWidget extends StatelessWidget {
             const SizedBox(height: 5),
             const Divider(height: 2),
             const SizedBox(height: 10),
-            Text('$product - $code '),
+            Text('$product - ${code.substring(0, 5)} '),
             Text(state),
           ],
         ),
@@ -63,13 +64,14 @@ class ItemOrderInProcessWidget extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Nº de envio:'),
+                        const Text('Nº de envío:'),
                         Text(numberOrder),
                       ],
                     ),
                     const Icon(Icons.copy),
                   ],
                 ),
+                const SizedBox(height: 10),
                 const Text('Fecha de entrega estimada:'),
                 Text(estimatedDate),
                 const SizedBox(height: 10),
@@ -79,16 +81,24 @@ class ItemOrderInProcessWidget extends StatelessWidget {
                 const Text('Lugar de destino'),
                 Text(address),
                 const SizedBox(height: 10),
+                // Center(
+                //   child: OutlinedButton(
+                //     onPressed: () {
+                //       context.push('/orderHistoryClient');
+                //     },
+                //     child: const Text('REPORTE DE INCIDENCIAS'),
+                //   ),
+                // ),
                 Center(
                   child: OutlinedButton(
-                    onPressed: () {},
-                    child: const Text('VER PERFIL DE INCIDENCIAS'),
-                  ),
-                ),
-                Center(
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: const Text('VER RECORRIDO DEL ENVIO'),
+                    onPressed: () async {
+                      Map<String, dynamic> mapa = {
+                        "idOrden": numberOrder,
+                      };
+                      // context.push('/rutaClient', extra: mapa);
+                      context.push('/orderHistoryClient');
+                    },
+                    child: const Text('VER RECORRIDO DEL ENVÍO'),
                   ),
                 ),
               ],

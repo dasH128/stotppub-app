@@ -13,7 +13,7 @@ final registerVehicleStateNotifierProvider = StateNotifierProvider<
       width: '',
       long: '',
       hasRefrigeration: false,
-      hasSure: '',
+      hasSure: false,
       hasSoat: '',
     ),
   ),
@@ -58,7 +58,7 @@ class RegisterVehicleFormNotifier
     state = newState;
   }
 
-  setHasSure(String value) {
+  setHasSure(bool value) {
     final newState = state.copy(hasSure: value);
     state = newState;
     // state.hasSure = value;
@@ -77,7 +77,7 @@ class RegisterVehicleFormNotifier
       width: '',
       long: '',
       hasRefrigeration: false,
-      hasSure: '',
+      hasSure: false,
       hasSoat: '',
     );
   }
@@ -111,7 +111,7 @@ class RegisterVehicleFormNotifier
 
     final vehicle = <String, dynamic>{
       // "name": state.registrationNumber,
-      "propertyCard": state.propertyCard,
+      // "propertyCard": state.propertyCard,
       "numberOfAxes": state.numberOfAxes,
       "long": state.long,
       "width": state.width,

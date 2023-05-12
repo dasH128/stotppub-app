@@ -48,8 +48,8 @@ class RegisterVehicleScreen extends ConsumerWidget {
                                 children: const [
                                   _FormRegistartionNumber(),
                                   SizedBox(height: 10),
-                                  _FormPropertyCard(),
-                                  SizedBox(height: 10),
+                                  // _FormPropertyCard(),
+                                  // SizedBox(height: 10),
                                   _FormNumberOfAxes(),
                                   SizedBox(height: 10),
                                   _FormWidth(),
@@ -146,7 +146,7 @@ class _FormPropertyCard extends ConsumerWidget {
     return TextFormFieldCustom1(
       initialValue: notifierForm.state.propertyCard,
       prefixIcon: const Icon(Icons.align_horizontal_right_outlined),
-      hint: 'Ingrese tarjeta de prioridad',
+      hint: 'Ingrese tarjeta de propiedad',
       onChanged: (value) {
         notifierForm.setPropertyCard(value);
       },
@@ -177,14 +177,25 @@ class _FormSure extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    RegisterVehicleFormNotifier notifierForm =
-        ref.watch(registerVehicleStateNotifierProvider.notifier);
-    return TextFormFieldCustom1(
-      initialValue: notifierForm.state.hasSure,
-      prefixIcon: const Icon(Icons.abc),
-      hint: 'Tiene seguro',
+    bool switchValue = ref.watch(registerVehicleStateNotifierProvider).hasSure;
+    // RegisterVehicleFormNotifier notifierForm =
+    //     ref.watch(registerVehicleStateNotifierProvider.notifier);
+    // return TextFormFieldCustom1(
+    //   initialValue: notifierForm.state.hasSure,
+    //   prefixIcon: const Icon(Icons.abc),
+    //   hint: 'Tiene seguro',
+    //   onChanged: (value) {
+    //     notifierForm.setHasSure(value);
+    //   },
+    // );
+    return SwitchCustom1Widget(
+      prefixIcon: const Icon(Icons.soap),
+      text: 'Tiene Seguro',
+      value: switchValue,
       onChanged: (value) {
-        notifierForm.setHasSure(value);
+        ref
+            .read(registerVehicleStateNotifierProvider.notifier)
+            .setHasSure(value);
       },
     );
   }

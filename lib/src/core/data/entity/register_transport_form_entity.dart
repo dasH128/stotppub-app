@@ -17,8 +17,8 @@ class RegisterTransportFormEntity {
     this.ruc = '',
     this.address = '',
     this.number = '',
-    this.licenseNumber = '3235',
-    this.categoryLicense = 'A I',
+    this.licenseNumber = 'Q3614',
+    this.categoryLicense = 'A III',
     this.email = '',
     this.password = '',
   });

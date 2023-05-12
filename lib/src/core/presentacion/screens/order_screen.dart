@@ -119,12 +119,12 @@ class TabView01 extends ConsumerWidget {
                 return ItemOrderInProcessWidget(
                   orderDate: orders[i].createdAt ?? '',
                   product: orders[i].product.toUpperCase(),
-                  code: 'XXXXX',
+                  code: orders[i].id ?? 'id',
                   state: 'En camino',
                   numberOrder: orders[i].id ?? 'id',
                   estimatedDate: orders[i].date,
                   address: orders[i].address,
-                  nameTransport: 'Pedro Gonzales',
+                  nameTransport: 'Tiago Solano',
                 );
               });
         },
@@ -190,18 +190,17 @@ class TabView02 extends ConsumerWidget {
                 return ItemOrderDeliveredWidget(
                   orderDate: orders[i].createdAt ?? '',
                   product: orders[i].product.toUpperCase(),
-                  code: 'XXXXX',
+                  code: orders[i].id ?? 'id',
                   state: 'Entregado',
                   numberOrder: orders[i].id ?? 'id',
                   estimatedDate: orders[i].date,
                   address: orders[i].address,
-                  nameTransport: 'Alan',
+                  nameTransport: 'Tiago Solano',
                   nameClient: '',
                   propertyCard: '',
                   typePerishable: '',
                 );
               });
-        
         },
         error: (e, _) => Text('Hubo un error ${e.toString()}'),
         loading: () => const Center(
@@ -209,6 +208,5 @@ class TabView02 extends ConsumerWidget {
         ),
       ),
     );
-
   }
 }

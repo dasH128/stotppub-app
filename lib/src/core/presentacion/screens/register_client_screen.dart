@@ -83,7 +83,7 @@ class RegisterClientScreen extends ConsumerWidget {
                               const SizedBox(height: 10),
                               TextFormFieldCustom1(
                                 prefixIcon: const Icon(Icons.run_circle),
-                                hint: 'Ingrese Dni',
+                                hint: 'Ingrese Ruc',
                                 initialValue: notifierForm.state.dni,
                                 onChanged: (value) {
                                   ref
@@ -120,7 +120,7 @@ class RegisterClientScreen extends ConsumerWidget {
                               TextFormFieldCustom1(
                                 prefixIcon: const Icon(Icons.password),
                                 obscureText: true,
-                                hint: 'Ingrese Password',
+                                hint: 'Ingrese Contraseña',
                                 initialValue: notifierForm.state.password,
                                 onChanged: (value) {
                                   ref

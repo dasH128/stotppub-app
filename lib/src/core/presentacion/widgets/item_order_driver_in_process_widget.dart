@@ -12,6 +12,7 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
   final String estimatedDate;
   final String address;
   final String nameTransport;
+  final bool? isStart;
   const ItemOrderDriverInProcessWidget({
     super.key,
     required this.product,
@@ -22,6 +23,7 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
     required this.estimatedDate,
     required this.address,
     required this.nameTransport,
+    this.isStart,
   });
 
   @override
@@ -50,7 +52,7 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
             const SizedBox(height: 5),
             const Divider(height: 2),
             const SizedBox(height: 10),
-            Text('$product - $code '),
+            Text('$product - $code'),
             Text(state),
           ],
         ),
@@ -78,10 +80,10 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
                 const Text('Fecha de entrega estimada:'),
                 Text(estimatedDate),
                 const SizedBox(height: 10),
-                const Text('Conductor asigando'),
+                const Text('Cliente:'),
                 Text(nameTransport),
                 const SizedBox(height: 10),
-                const Text('Lugar de destino'),
+                const Text('Lugar de destino:'),
                 Text(address),
                 const SizedBox(height: 10),
                 Center(
@@ -93,6 +95,7 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
                 Center(
                   child: OutlinedButton(
                     onPressed: () async {
+                      if (isStart != true) {} // TODO:dash
                       try {
                         GeolocatorPlatform _geolocatorPlatform =
                             GeolocatorPlatform.instance;
@@ -115,7 +118,9 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
                         print(e.toString());
                       }
                     },
-                    child: const Text('COMENZAR'),
+                    child: (isStart == true)
+                        ? const Text('VERR')
+                        : const Text('COMENZAR'),
                   ),
                 ),
               ],

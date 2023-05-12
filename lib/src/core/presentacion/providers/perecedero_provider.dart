@@ -10,7 +10,7 @@ final perecederoProvider = StateProvider<List<PerecederoEntity>>(
     ),
     PerecederoEntity(
       id: '2',
-      name: 'Platano',
+      name: 'Plátano',
       description: 'esto es una manszana',
     ),
     PerecederoEntity(

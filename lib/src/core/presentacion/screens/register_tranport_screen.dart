@@ -94,7 +94,7 @@ class _FormPassword extends ConsumerWidget {
       initialValue: notifierForm.state.password,
       prefixIcon: const Icon(Icons.password),
       obscureText: true,
-      hint: 'Ingrese Password',
+      hint: 'Ingrese Contraseña',
       onChanged: (value) {
         notifierForm.setPassword(value);
       },
@@ -151,7 +151,7 @@ class _FormRuc extends ConsumerWidget {
     return TextFormFieldCustom1(
       initialValue: notifierForm.state.ruc,
       prefixIcon: const Icon(Icons.reduce_capacity),
-      hint: 'Ingrese DNI',
+      hint: 'Ingrese Dni',
       onChanged: (value) {
         notifierForm.setRuc(value);
       },
@@ -227,7 +227,7 @@ class _FormLicenseNumber extends ConsumerWidget {
     return TextFormFieldCustom1(
       initialValue: notifierForm.state.licenseNumber,
       prefixIcon: const Icon(Icons.add_card_outlined),
-      hint: 'Ingrese Número de licensia',
+      hint: 'Ingrese número de licencia',
       onChanged: (value) {
         notifierForm.setLicenseNumber(value);
       },
@@ -248,7 +248,7 @@ class _FormTypeLicense extends ConsumerWidget {
 
     return TextOptionCustom1Widget(
       prefixIcon: const Icon(Icons.type_specimen),
-      text: 'Ingrese Categoría de licensia',
+      text: 'Ingrese Categoría de licencia',
       value: category,
       titleOption: 'Eliga una opcion:',
       valueOption: data,

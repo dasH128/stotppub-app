@@ -225,7 +225,7 @@ class LoginContainer extends ConsumerWidget {
                 _FormPassword(passwordController: _passwordController),
                 const SizedBox(height: 15),
                 const Text(
-                  'Olvide mi contraseça',
+                  'Olvide mi contraseña',
                   style: TextStyle(fontSize: 18),
                 ),
                 const SizedBox(height: 10),
@@ -334,36 +334,32 @@ class _ButtonContainer extends ConsumerWidget {
           await storage.setItem('userType', 'admin');
           await storage.setItem('idUser', 'admin');
           await storage.setItem('isLogged', true);
-          context.go('/homeAdmin');
-        }
-        ResponseData<User> isUserFind =
-            await signIn(_emailController.text, _passwordController.text);
-        if (!isUserFind.isOk) {
-          var snac =
-              snackBarWidget(title: 'Error', message: isUserFind.menssage);
-          ScaffoldMessenger.of(ref.context).showSnackBar(snac);
+          ref.context.go('/homeAdmin');
           return;
-        }
-        String idUser = isUserFind.data!.uid;
-        ResponseData<UserTypeEntity> userTypeFind = await findUser(idUser);
+        } else {
+          ResponseData<User> isUserFind =
+              await signIn(_emailController.text, _passwordController.text);
+          if (!isUserFind.isOk) {
+            var snac =
+                snackBarWidget(title: 'Error', message: isUserFind.menssage);
+            ScaffoldMessenger.of(ref.context).showSnackBar(snac);
+            return;
+          }
+          String idUser = isUserFind.data!.uid;
+          ResponseData<UserTypeEntity> userTypeFind = await findUser(idUser);
 
-        // if (_emailController.text == 'admin@gmail.com') {
-        //   await storage.setItem('userType', 'admin');
-        //   await storage.setItem('idUser', 'admin');
-        //   await storage.setItem('isLogged', true);
-        //   context.go('/homeAdmin');
-        // }
-        if (userTypeFind.data!.type == 'driver') {
-          await storage.setItem('userType', 'driver');
-          await storage.setItem('idUser', userTypeFind.data!.idUser);
-          await storage.setItem('isLogged', true);
-          context.go('/homeDriver');
-        }
-        if (userTypeFind.data!.type == 'client') {
-          await storage.setItem('userType', 'client');
-          await storage.setItem('idUser', userTypeFind.data!.idUser);
-          await storage.setItem('isLogged', true);
-          context.go('/homeClient');
+          if (userTypeFind.data!.type == 'driver') {
+            await storage.setItem('userType', 'driver');
+            await storage.setItem('idUser', userTypeFind.data!.idUser);
+            await storage.setItem('isLogged', true);
+            context.go('/homeDriver');
+          }
+          if (userTypeFind.data!.type == 'client') {
+            await storage.setItem('userType', 'client');
+            await storage.setItem('idUser', userTypeFind.data!.idUser);
+            await storage.setItem('isLogged', true);
+            context.go('/homeClient');
+          }
         }
 
         // if (_emailController.text == 'admin@gmail.com') {

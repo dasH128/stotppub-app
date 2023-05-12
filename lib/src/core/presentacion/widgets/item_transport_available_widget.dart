@@ -36,13 +36,13 @@ class ItemTransportAvailableWidget extends StatelessWidget {
                     children: [
                       TableRow(
                         children: [
-                          const Text('licensia: '),
+                          const Text('licencia: '),
                           Text(licenseNumber),
                         ],
                       ),
                       TableRow(
                         children: [
-                          const Text('Categoria: '),
+                          const Text('Categoría: '),
                           Text(categoryLicense),
                         ],
                       ),

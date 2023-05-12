@@ -1,3 +1,8 @@
+export 'package:stotppub/src/core/presentacion/screens/incident_orders_screen.dart';
+
+export 'package:stotppub/src/core/presentacion/screens/incident_register_screen.dart';
+
+export 'package:stotppub/src/core/presentacion/screens/ruta_client_screen.dart';
 export 'package:stotppub/src/core/presentacion/screens/ruta_driver_screen.dart';
 export 'package:stotppub/src/core/presentacion/screens/search_destination_screen.dart';
 

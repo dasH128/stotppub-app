@@ -86,7 +86,8 @@ final appRouter = GoRouter(
       builder: (context, state) => OrderScreen(
         initView: (state.extra as int),
       ),
-    ),GoRoute(
+    ),
+    GoRoute(
       path: '/orderDriver',
       name: 'orderDriver',
       builder: (context, state) => OrdersDriverScreen(
@@ -102,6 +103,11 @@ final appRouter = GoRouter(
       path: '/incident',
       name: 'incident',
       builder: (context, state) => const IncidentScreen(),
+    ),
+    GoRoute(
+      path: '/incidentListOrder',
+      name: 'incidentListOrder',
+      builder: (context, state) => const IncidentOrdersScreen(),
     ),
     GoRoute(
       path: '/incidentDetail',
@@ -128,7 +134,7 @@ final appRouter = GoRouter(
       name: 'registerVehicle',
       builder: (context, state) => const RegisterVehicleScreen(),
     ),
-     GoRoute(
+    GoRoute(
       path: '/showPerishable',
       name: 'showPerishable',
       builder: (context, state) => const ShowPerishableWidget(),
@@ -153,7 +159,6 @@ final appRouter = GoRouter(
       name: 'route',
       builder: (context, state) => const RouteScreen(),
     ),
-    
     GoRoute(
       path: '/searchDestination',
       name: 'searchDestination',
@@ -163,7 +168,21 @@ final appRouter = GoRouter(
       path: '/rutaDriver',
       name: 'rutaDriver',
       builder: (context, state) => RutaDriverScreen(
-        mapa:(state.extra as Map<String, dynamic>),
+        mapa: (state.extra as Map<String, dynamic>),
+      ),
+    ),
+    GoRoute(
+      path: '/rutaClient',
+      name: 'rutaClient',
+      builder: (context, state) => RutaClientScreen(
+        mapa: (state.extra as Map<String, dynamic>),
+      ),
+    ),
+    GoRoute(
+      path: '/incidenteRegister',
+      name: 'incidenteRegister',
+      builder: (context, state) => IncidentRegisterScreen(
+        idDriver: (state.extra as String),
       ),
     ),
   ],
