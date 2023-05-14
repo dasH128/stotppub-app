@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
 class IncidentScreen extends StatelessWidget {
-  const IncidentScreen({super.key});
+  final Map<String, dynamic>? mapa;
+  const IncidentScreen({super.key, this.mapa});
 
   @override
   Widget build(BuildContext context) {
+    print('dash ${mapa.toString()}');
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Incidentes'),
+        title: Text('Incidentes '),
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: getIncidents(),
@@ -40,7 +42,7 @@ class IncidentScreen extends StatelessWidget {
     try {
       CollectionReference db = FirebaseFirestore.instance
           .collection("order")
-          .doc('wEp7Cl7R9vZc64nvdGNT')
+          .doc(mapa!["idOrden"])
           .collection('incidents');
       QuerySnapshot<Object?> incedents = await db.get();
       List<Map<String, dynamic>> datos = incedents.docs.map((doc) {

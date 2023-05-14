@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:stotppub/src/core/data/entity/entity.dart';
 import 'package:stotppub/src/core/presentacion/providers/show_order_provider.dart';
 import 'package:stotppub/src/core/presentacion/widgets/snackbar_widget.dart';
 
@@ -17,9 +21,67 @@ class RutaDriverScreen extends ConsumerStatefulWidget {
 }
 
 class RutaDriverScreenState extends ConsumerState<RutaDriverScreen> {
+  late Timer _timer;
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
   final Set<Polyline> _polyline = {};
   bool isLoading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //TODO:dash guardar cada 1,5 h
+    _timer = Timer.periodic(const Duration(seconds: 15), (timer) async {
+      Position geo = await _geolocatorPlatform.getCurrentPosition();
+      List<Feature> r =
+          await findSuggestionInMapBox(geo.latitude, geo.longitude);
+      var lugar = '${geo.latitude};${geo.longitude}';
+      if (r.isNotEmpty) {
+        lugar = r[0].placeName;
+      }
+      var db = FirebaseFirestore.instance
+          .collection("order")
+          .doc(widget.mapa!["idOrden"])
+          .collection('historial');
+
+      db.add({
+        'lat': geo.latitude,
+        'lng': geo.longitude,
+        'time': Timestamp.now(),
+        'lugar': lugar
+      });
+    });
+  }
+
+  Future<List<Feature>> findSuggestionInMapBox(double lat, double lng) async {
+    try {
+      var query = '${lng.toString()},${lat.toString()}';
+      String url =
+          'https://api.mapbox.com/geocoding/v5/mapbox.places/$query.json?country=pe&language=es&access_token=pk.eyJ1IjoiZGFzaDEyOCIsImEiOiJja2U3Zmw3YzIwdXBwMnNyM2t6bThybXlxIn0.JgcaqxQE0PRfZZQA7cGbQA';
+
+      print(url);
+      final response = await Dio().get(url);
+      print('-------response');
+      print(response);
+      PlaceGPSResponse res = PlaceGPSResponse.fromJson(response.data);
+      print('-------PlaceResponse');
+      print(response);
+      return res.features;
+    } catch (e) {
+      print('-------response error');
+      print(e.toString());
+      return [];
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _timer.cancel();
+    _polyline.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ItemOrderDriverDeliveredWidget extends StatelessWidget {
   final String product;
@@ -96,10 +97,24 @@ class ItemOrderDriverDeliveredWidget extends StatelessWidget {
                 // const Text('Tipo de perecedero'),
                 // Text(typePerishable),
                 const SizedBox(height: 10),
+                // Center(
+                //   child: OutlinedButton(
+                //     onPressed: () {},
+                //     child: Text('RUTA'),
+                //   ),
+                // ),
                 Center(
                   child: OutlinedButton(
-                    onPressed: () {},
-                    child: Text('RUTA'),
+                    onPressed: () {
+                      // TODO:dash ver historial de incidencias
+                      Map<String, dynamic> mapa = {
+                        "idOrden": numberOrder,
+                      };
+
+                      print('LISTA DE INCIDENTE A ENVIAR ${mapa["idOrden"]}');
+                      context.push('/incident', extra: mapa);
+                    },
+                    child: const Text('VER PERFIL DE INCIDENCIAS'),
                   ),
                 ),
               ],

@@ -97,12 +97,15 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/orderHistoryClient',
       name: 'orderHistoryClient',
-      builder: (context, state) => const OrderHistoryScreen(),
+      builder: (context, state) =>
+          OrderHistoryScreen(idOrden: (state.extra as String)),
     ),
     GoRoute(
       path: '/incident',
       name: 'incident',
-      builder: (context, state) => const IncidentScreen(),
+      builder: (context, state) => IncidentScreen(
+        mapa: (state.extra as Map<String, dynamic>),
+      ),
     ),
     GoRoute(
       path: '/incidentListOrder',

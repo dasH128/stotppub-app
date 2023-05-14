@@ -38,6 +38,41 @@ class PlaceResponse {
       };
 }
 
+class PlaceGPSResponse {
+  final String type;
+  final List<double> query;
+  final List<Feature> features;
+  final String attribution;
+
+  PlaceGPSResponse({
+    required this.type,
+    required this.query,
+    required this.features,
+    required this.attribution,
+  });
+
+  factory PlaceGPSResponse.fromRawJson(String str) =>
+      PlaceGPSResponse.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory PlaceGPSResponse.fromJson(Map<String, dynamic> json) =>
+      PlaceGPSResponse(
+        type: json["type"],
+        query: List<double>.from(json["query"].map((x) => x?.toDouble())),
+        features: List<Feature>.from(
+            json["features"].map((x) => Feature.fromJson(x))),
+        attribution: json["attribution"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "type": type,
+        "query": List<dynamic>.from(query.map((x) => x)),
+        "features": List<dynamic>.from(features.map((x) => x.toJson())),
+        "attribution": attribution,
+      };
+}
+
 class Feature {
   final String id;
   final String type;

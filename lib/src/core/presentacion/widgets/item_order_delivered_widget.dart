@@ -105,7 +105,7 @@ class ItemOrderDeliveredWidget extends StatelessWidget {
                 Center(
                   child: OutlinedButton(
                     onPressed: () {},
-                    child: Text('VER RECORRIDO DEL ENVÍO'),
+                    child: const Text('VER RECORRIDO DEL ENVÍO'),
                   ),
                 ),
               ],

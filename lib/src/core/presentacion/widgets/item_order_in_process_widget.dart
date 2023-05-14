@@ -96,7 +96,7 @@ class ItemOrderInProcessWidget extends StatelessWidget {
                         "idOrden": numberOrder,
                       };
                       // context.push('/rutaClient', extra: mapa);
-                      context.push('/orderHistoryClient');
+                      context.push('/orderHistoryClient', extra: code);
                     },
                     child: const Text('VER RECORRIDO DEL ENVÍO'),
                   ),

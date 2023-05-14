@@ -86,12 +86,12 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
                 const Text('Lugar de destino:'),
                 Text(address),
                 const SizedBox(height: 10),
-                Center(
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: const Text('VER PERFIL DE INCIDENCIAS'),
-                  ),
-                ),
+                // Center(
+                //   child: OutlinedButton(
+                //     onPressed: () {},
+                //     child: const Text('VER PERFIL DE INCIDENCIAS'),
+                //   ),
+                // ),
                 Center(
                   child: OutlinedButton(
                     onPressed: () async {
@@ -119,7 +119,7 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
                       }
                     },
                     child: (isStart == true)
-                        ? const Text('VERR')
+                        ? const Text('VER')
                         : const Text('COMENZAR'),
                   ),
                 ),
