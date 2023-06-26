@@ -9,8 +9,8 @@ import 'package:stotppub/src/core/presentacion/widgets/snackbar_widget.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
 
 class ProfileInfoDriverScreen extends ConsumerStatefulWidget {
-  RegisterTransportFormEntity? driver;
-  ProfileInfoDriverScreen({super.key, this.driver});
+  final RegisterTransportFormEntity? driver;
+  const ProfileInfoDriverScreen({super.key, this.driver});
 
   @override
   ProfileInfoDriverScreenState createState() => ProfileInfoDriverScreenState();

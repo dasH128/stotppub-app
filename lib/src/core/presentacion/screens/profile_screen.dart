@@ -21,7 +21,9 @@ class ProfileScreenState extends ConsumerState<ProfileScreen> {
       borderRadius: BorderRadius.circular(15),
     );
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Información'),
+      ),
       body: SafeArea(
         child: FutureBuilder(
           future: findUser(),

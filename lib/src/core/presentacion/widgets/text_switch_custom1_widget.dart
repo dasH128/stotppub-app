@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 
 class SwitchCustom1Widget extends StatelessWidget {
   final String text;
@@ -24,7 +25,8 @@ class SwitchCustom1Widget extends StatelessWidget {
         horizontal: 16,
       ),
       decoration: BoxDecoration(
-        color: color.primary.withOpacity(0.1),
+        color:
+            MyAppTheme.color.withOpacity(0.1), //color.primary.withOpacity(0.1),
         borderRadius: BorderRadius.circular(15),
         border: Border.all(width: 1),
       ),

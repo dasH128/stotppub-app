@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 
 class ItemShipmentWidget extends StatelessWidget {
   final String title;
@@ -25,7 +26,8 @@ class ItemShipmentWidget extends StatelessWidget {
         margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: color.primary.withOpacity(0.15),
+          color: MyAppTheme.color
+              .withOpacity(0.15), //color.primary.withOpacity(0.15),
           borderRadius: BorderRadius.circular(15),
         ),
         child: ListTile(

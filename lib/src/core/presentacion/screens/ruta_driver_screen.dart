@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 import 'package:stotppub/src/core/data/entity/entity.dart';
 import 'package:stotppub/src/core/presentacion/providers/show_order_provider.dart';
 import 'package:stotppub/src/core/presentacion/widgets/snackbar_widget.dart';
@@ -32,6 +33,10 @@ class RutaDriverScreenState extends ConsumerState<RutaDriverScreen> {
     super.initState();
     //TODO:dash guardar cada 1,5 h
     _timer = Timer.periodic(const Duration(seconds: 15), (timer) async {
+      LocationPermission check = await Geolocator.checkPermission();
+      if (check == LocationPermission.denied) {
+        check = await Geolocator.requestPermission();
+      }
       Position geo = await _geolocatorPlatform.getCurrentPosition();
       List<Feature> r =
           await findSuggestionInMapBox(geo.latitude, geo.longitude);
@@ -198,6 +203,7 @@ class RutaDriverScreenState extends ConsumerState<RutaDriverScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            backgroundColor: MyAppTheme.color2,
             heroTag: 'btn2',
             onPressed: () async {
               setState(() {
@@ -260,10 +266,13 @@ class RutaDriverScreenState extends ConsumerState<RutaDriverScreen> {
             },
             child: (isLoading == true)
                 ? const CircularProgressIndicator()
-                : const Icon(Icons.done_outline_sharp),
+                : const Icon(
+                    Icons.done_outline_sharp,
+                  ),
           ),
           const SizedBox(height: 10),
           FloatingActionButton(
+            backgroundColor: MyAppTheme.color2,
             heroTag: 'btn1',
             onPressed: () {
               ref.context

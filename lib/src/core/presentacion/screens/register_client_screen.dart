@@ -18,19 +18,20 @@ class RegisterClientScreen extends ConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
+        // appBar: AppBar(title: const Text('Registrar Cliente')),
         body: (isLoadingPage)
             ? const LoadingWidget()
             : CustomScrollView(slivers: [
                 SliverAppBar(
-                  floating: true,
+                  // floating: true,
                   pinned: true,
-                  expandedHeight: 350,
+                  expandedHeight: 250,
                   flexibleSpace: FlexibleSpaceBar(
                     title: const Text('Registrar Cliente'),
-                    background: Image.asset(
-                      'assets/images/register_transport.jpg',
-                      fit: BoxFit.cover,
-                    ),
+                    // background: Image.asset(
+                    //   'assets/images/register_transport.jpg',
+                    //   fit: BoxFit.cover,
+                    // ),
                   ),
                 ),
                 SliverToBoxAdapter(

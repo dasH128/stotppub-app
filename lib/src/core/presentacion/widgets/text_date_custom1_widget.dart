@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 
 class TextDateCustom1Widget extends StatelessWidget {
   final String value;
@@ -39,7 +38,8 @@ class TextDateCustom1Widget extends StatelessWidget {
         height: 64,
         width: double.infinity,
         decoration: BoxDecoration(
-            color: color.primary.withOpacity(0.1),
+            color: MyAppTheme.color
+                .withOpacity(0.1), //color.primary.withOpacity(0.1),
             border: Border.all(color: Colors.black),
             borderRadius: BorderRadius.circular(15)),
         child: Row(
@@ -48,7 +48,7 @@ class TextDateCustom1Widget extends StatelessWidget {
               margin: const EdgeInsets.only(right: 8, left: 8),
               child: prefixIcon,
             ),
-            Text((value.length == 0) ? 'Eliga fecha ' : value)
+            Text((value.isEmpty) ? 'Eliga fecha ' : value)
           ],
         ),
       ),

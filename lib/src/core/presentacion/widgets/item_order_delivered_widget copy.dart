@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 
 class ItemOrderDeliveredWidget extends StatelessWidget {
   final String product;
@@ -33,7 +34,7 @@ class ItemOrderDeliveredWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.black12,
+        color: MyAppTheme.color.withOpacity(0.15),
       ),
       child: ExpansionTile(
         title: Column(

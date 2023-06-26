@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 
 class ItemOrderDriverDeliveredWidget extends StatelessWidget {
   final String product;
@@ -33,9 +34,9 @@ class ItemOrderDriverDeliveredWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.black12,
-      ),
+          borderRadius: BorderRadius.circular(15),
+          color: MyAppTheme.color.withOpacity(0.25),
+          ),
       child: ExpansionTile(
         title: Column(
           mainAxisAlignment: MainAxisAlignment.end,

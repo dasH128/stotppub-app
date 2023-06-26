@@ -37,7 +37,10 @@ class AlertDialogLogoutWidget extends StatelessWidget {
             await storage.setItem('isLogged', false);
             context.pushReplacement('/');
           },
-          child: const Text('Ok'),
+          child: const Text(
+            'Ok',
+            style: TextStyle(color: Color(0xFFABC270)),
+          ),
         )
       ],
     );

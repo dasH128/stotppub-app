@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 import 'package:stotppub/src/core/presentacion/widgets/snackbar_widget.dart';
 
 class IncidentRegisterScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _IncidentRegisterScreenState extends State<IncidentRegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
-    var colorPrimary = color.primary;
+    var colorPrimary = MyAppTheme.color; //color.primary;
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(15),
     );
@@ -120,8 +121,9 @@ class _IncidentRegisterScreenState extends State<IncidentRegisterScreen> {
             ScaffoldMessenger.of(context).showSnackBar(snacE);
           }
         },
-        child: const Icon(
+        child: Icon(
           Icons.save_rounded,
+          color: MyAppTheme.color,
         ),
       ),
     );

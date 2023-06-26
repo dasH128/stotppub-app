@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 
 class ButtonCustom1Widget extends StatelessWidget {
   final String text;
@@ -16,7 +17,7 @@ class ButtonCustom1Widget extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      color: Colors.amber,
+      color: MyAppTheme.color2, // Colors.amber,
       onPressed: onPressed,
       child: SizedBox(
         width: double.infinity,

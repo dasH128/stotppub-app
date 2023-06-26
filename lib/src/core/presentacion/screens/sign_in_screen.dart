@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 import 'package:stotppub/src/core/data/dto/response_data.dart';
 import 'package:stotppub/src/core/data/entity/entity.dart';
 import 'package:stotppub/src/core/presentacion/widgets/snackbar_widget.dart';
@@ -172,8 +173,8 @@ class LoginContainer extends ConsumerWidget {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 16),
-            child: Text(
+            padding: const EdgeInsets.only(top: 16),
+            child: const Text(
               'BlockTrace',
               style: TextStyle(
                 fontSize: 38,
@@ -209,9 +210,9 @@ class LoginContainer extends ConsumerWidget {
               horizontal: 20,
               vertical: 15,
             ),
-            decoration: const BoxDecoration(
-              color: Colors.greenAccent,
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              color: MyAppTheme.color, // Colors.greenAccent,
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(25),
                 topRight: Radius.circular(15),
               ),
@@ -247,9 +248,7 @@ class LoginContainer extends ConsumerWidget {
 }
 
 class _TextRemenberContainer extends ConsumerWidget {
-  const _TextRemenberContainer({
-    super.key,
-  });
+  const _TextRemenberContainer();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -273,9 +272,7 @@ class _TextRemenberContainer extends ConsumerWidget {
 }
 
 class _TextRegisterContainer extends ConsumerWidget {
-  const _TextRegisterContainer({
-    super.key,
-  });
+  const _TextRegisterContainer();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -307,7 +304,6 @@ class _TextRegisterContainer extends ConsumerWidget {
 
 class _ButtonContainer extends ConsumerWidget {
   const _ButtonContainer({
-    super.key,
     required TextEditingController emailController,
     required TextEditingController passwordController,
   })  : _emailController = emailController,
@@ -443,12 +439,18 @@ class _FormPassword extends StatefulWidget {
 class _FormPasswordState extends State<_FormPassword> {
   @override
   Widget build(BuildContext context) {
+    var border = const OutlineInputBorder(
+      gapPadding: 10,
+      borderSide: BorderSide(width: 1),
+    );
     return TextField(
       obscureText: widget.obscureText,
       controller: widget._passwordController,
       decoration: InputDecoration(
         hintText: 'Contraseña',
-        border: const OutlineInputBorder(),
+        border: border,
+        enabledBorder: border,
+        focusedBorder: border,
         suffixIcon: GestureDetector(
             onTap: () {
               setState(() {
@@ -471,11 +473,17 @@ class _FormName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var border = const OutlineInputBorder(
+      gapPadding: 10,
+      borderSide: BorderSide(width: 1),
+    );
     return TextField(
       controller: _emailController,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         hintText: 'Usuario',
-        border: OutlineInputBorder(),
+        border: border,
+        enabledBorder: border,
+        focusedBorder: border,
       ),
     );
   }

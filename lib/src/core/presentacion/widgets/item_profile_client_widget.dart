@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 import 'package:stotppub/src/core/data/entity/entity.dart';
 
 class ItemProfileClientWidget extends StatelessWidget {
@@ -20,7 +21,8 @@ class ItemProfileClientWidget extends StatelessWidget {
         margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: color.primary.withOpacity(0.15),
+          color: MyAppTheme.color
+              .withOpacity(0.15), //color.primary.withOpacity(0.15),
           borderRadius: BorderRadius.circular(15),
         ),
         child: ListTile(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 import 'package:stotppub/src/core/data/dto/response_data.dart';
 import 'package:stotppub/src/core/data/entity/entity.dart';
 import 'package:stotppub/src/core/presentacion/providers/register_order_provider.dart';
@@ -114,7 +115,7 @@ class ProfileInfoVehicleScreenState
                   //   },
                   // ),
                   SwitchCustom1Widget(
-                    prefixIcon: const Icon(Icons.soap),
+                    prefixIcon: Icon(Icons.soap, color: MyAppTheme.color),
                     text: 'Seguro',
                     value: sure,
                     onChanged: (value) {
@@ -134,7 +135,7 @@ class ProfileInfoVehicleScreenState
                   ),
                   const SizedBox(height: 10),
                   SwitchCustom1Widget(
-                    prefixIcon: const Icon(Icons.soap),
+                    prefixIcon: Icon(Icons.soap, color: MyAppTheme.color),
                     text: 'Refrigeración',
                     value: refrigeration,
                     onChanged: (value) {

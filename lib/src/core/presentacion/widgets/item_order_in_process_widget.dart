@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 
 class ItemOrderInProcessWidget extends StatelessWidget {
   final String product;
@@ -28,7 +29,7 @@ class ItemOrderInProcessWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.black12,
+        color: MyAppTheme.color.withOpacity(0.15),
       ),
       child: ExpansionTile(
         title: Column(
@@ -92,9 +93,9 @@ class ItemOrderInProcessWidget extends StatelessWidget {
                 Center(
                   child: OutlinedButton(
                     onPressed: () async {
-                      Map<String, dynamic> mapa = {
-                        "idOrden": numberOrder,
-                      };
+                      // Map<String, dynamic> mapa = {
+                      //   "idOrden": numberOrder,
+                      // };
                       // context.push('/rutaClient', extra: mapa);
                       context.push('/orderHistoryClient', extra: code);
                     },

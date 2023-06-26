@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 
 import 'package:stotppub/src/core/data/dto/response_data.dart';
 import 'package:stotppub/src/core/presentacion/widgets/snackbar_widget.dart';
@@ -247,7 +248,10 @@ class _FormTypeLicense extends ConsumerWidget {
         ref.watch(registerTransportStateNotifierProvider).categoryLicense;
 
     return TextOptionCustom1Widget(
-      prefixIcon: const Icon(Icons.type_specimen),
+      prefixIcon: Icon(
+        Icons.type_specimen,
+        color: MyAppTheme.color,
+      ),
       text: 'Ingrese Categoría de licencia',
       value: category,
       titleOption: 'Eliga una opcion:',

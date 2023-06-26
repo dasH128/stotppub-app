@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 
 class ItemOrderDriverInProcessWidget extends StatelessWidget {
   final String product;
@@ -32,7 +33,7 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.black12,
+        color: MyAppTheme.color.withOpacity(0.25),
       ),
       child: ExpansionTile(
         title: Column(
@@ -99,6 +100,11 @@ class ItemOrderDriverInProcessWidget extends StatelessWidget {
                       try {
                         GeolocatorPlatform _geolocatorPlatform =
                             GeolocatorPlatform.instance;
+                        LocationPermission check =
+                            await Geolocator.checkPermission();
+                        if (check == LocationPermission.denied) {
+                          check = await Geolocator.requestPermission();
+                        }
                         Position pos =
                             await _geolocatorPlatform.getCurrentPosition();
                         CollectionReference db =

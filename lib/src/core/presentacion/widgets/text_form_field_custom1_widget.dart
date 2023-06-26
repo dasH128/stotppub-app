@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 
 class TextFormFieldCustom1 extends StatelessWidget {
   final String? label;
@@ -20,7 +21,7 @@ class TextFormFieldCustom1 extends StatelessWidget {
     this.obscureText = false,
     this.enabled = true,
     this.errorMesagge,
-    this.colorError = const Color(0xFFC62828),
+    this.colorError = const Color(0xFFABC270),
     this.onChanged,
     this.validator,
     this.prefixIcon,
@@ -28,7 +29,7 @@ class TextFormFieldCustom1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
-    var colorPrimary = color.primary;
+    var colorPrimary = MyAppTheme.color;// Color(0xFFABC270); //color.primary;
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(15),
     );
@@ -42,7 +43,9 @@ class TextFormFieldCustom1 extends StatelessWidget {
         disabledBorder: border.copyWith(
           borderSide: BorderSide(color: colorPrimary),
         ),
-        enabledBorder: border,
+        enabledBorder: border.copyWith(
+          borderSide: BorderSide(color: colorPrimary),
+        ),
         focusedBorder: border.copyWith(
           borderSide: BorderSide(color: colorPrimary),
         ),
@@ -51,6 +54,9 @@ class TextFormFieldCustom1 extends StatelessWidget {
         ),
         focusedErrorBorder: border.copyWith(
           borderSide: BorderSide(color: colorError),
+        ),
+        border: border.copyWith(
+          borderSide: BorderSide(color: colorPrimary),
         ),
         focusColor: colorPrimary,
         errorText: errorMesagge,

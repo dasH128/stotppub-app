@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 import 'package:stotppub/src/core/presentacion/providers/register_vehicle_provider.dart';
 import 'package:stotppub/src/core/presentacion/widgets/snackbar_widget.dart';
 import 'package:stotppub/src/core/presentacion/widgets/widgets.dart';
@@ -189,7 +190,7 @@ class _FormSure extends ConsumerWidget {
     //   },
     // );
     return SwitchCustom1Widget(
-      prefixIcon: const Icon(Icons.soap),
+      prefixIcon: Icon(Icons.soap, color: MyAppTheme.color),
       text: 'Tiene Seguro',
       value: switchValue,
       onChanged: (value) {
@@ -228,7 +229,7 @@ class _FormRefrigeration extends ConsumerWidget {
         ref.watch(registerVehicleStateNotifierProvider).hasRefrigeration;
 
     return SwitchCustom1Widget(
-      prefixIcon: const Icon(Icons.soap),
+      prefixIcon: Icon(Icons.soap, color: MyAppTheme.color),
       text: 'Tiene Refrigeration',
       value: switchValue,
       onChanged: (value) {

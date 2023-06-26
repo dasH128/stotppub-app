@@ -190,6 +190,10 @@ class SearchDestinationScreenState
   }
 
   Future<Position> getCurrentePosition() async {
+    LocationPermission check = await Geolocator.checkPermission();
+    if (check == LocationPermission.denied) {
+      check = await Geolocator.requestPermission();
+    }
     return await _geolocatorPlatform.getCurrentPosition();
   }
 }

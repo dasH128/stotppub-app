@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 import 'package:stotppub/src/core/data/entity/entity.dart';
 
 import '../providers/perecedero_provider.dart';
@@ -22,7 +23,8 @@ class ShowPerishableWidget extends ConsumerWidget {
               margin: const EdgeInsets.all(8),
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.purpleAccent.withOpacity(0.1),
+                color: MyAppTheme.color
+                    .withOpacity(0.1), // Colors.purpleAccent.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: ListTile(

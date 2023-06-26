@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:stotppub/src/core/config/app_theme.dart';
 import 'package:stotppub/src/core/data/entity/entity.dart';
 import 'package:stotppub/src/core/delegate/search_perecedero_delegate.dart';
 import 'package:stotppub/src/core/presentacion/providers/register_order_provider.dart';
@@ -87,7 +88,8 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
     return Stack(
       children: [
         Container(
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 15, vertical: 5),
+          padding:
+              const EdgeInsetsDirectional.symmetric(horizontal: 15, vertical: 5),
           color: Colors.red,
           child: GestureDetector(
             onTap: () async {
@@ -212,7 +214,7 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
             const SizedBox(height: 15),
             TextDateCustom1Widget(
               value: notifier.state.date,
-              prefixIcon: const Icon(Icons.calendar_month),
+              prefixIcon: Icon(Icons.calendar_month, color: MyAppTheme.color),
               onTap: () async {
                 DateTime? data = await showDatePicker(
                   helpText: 'Ingrese Fecha',
@@ -220,6 +222,11 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
                   initialDate: DateTime.now(),
                   firstDate: DateTime.now(),
                   lastDate: DateTime(2024),
+                  builder: (context, child) {
+                    return Theme(
+                        data: ThemeData(colorSchemeSeed: MyAppTheme.color),
+                        child: child!);
+                  },
                 );
                 if (data == null) return;
                 print(data.toUtc());
