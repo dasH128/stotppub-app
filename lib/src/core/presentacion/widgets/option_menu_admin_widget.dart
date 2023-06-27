@@ -16,36 +16,47 @@ class OptionsMenuAdmin extends StatelessWidget {
           style: TextStyle(fontSize: 20),
         ),
         const SizedBox(height: 15),
-        ItemOptionMenu(
-          text: 'Registrar cliente',
-          icon: const Icon(
-            Icons.manage_search_rounded,
-            size: 35,
-          ),
-          onClick: () {
-            context.push('/registerClient');
-          },
-        ),
+        // ItemOptionMenu(
+        //   text: 'Registrar cliente',
+        //   icon: const Icon(
+        //     Icons.manage_search_rounded,
+        //     size: 35,
+        //   ),
+        //   onClick: () {
+        //     context.push('/registerClient');
+        //   },
+        // ),
+        // const SizedBox(height: 15),
+        // ItemOptionMenu(
+        //   text: 'Registrar transportista',
+        //   icon: const Icon(
+        //     Icons.manage_search_rounded,
+        //     size: 35,
+        //   ),
+        //   onClick: () {
+        //     context.push('/registerTransport');
+        //   },
+        // ),
+        // const SizedBox(height: 15),
+        // ItemOptionMenu(
+        //   text: 'Registrar vehículo',
+        //   icon: const Icon(
+        //     Icons.car_repair,
+        //     size: 35,
+        //   ),
+        //   onClick: () {
+        //     context.push('/registerVehicle');
+        //   },
+        // ),
         const SizedBox(height: 15),
         ItemOptionMenu(
-          text: 'Registrar transportista',
+          text: 'Registros',
           icon: const Icon(
-            Icons.manage_search_rounded,
+            Icons.list_alt_rounded,
             size: 35,
           ),
           onClick: () {
-            context.push('/registerTransport');
-          },
-        ),
-        const SizedBox(height: 15),
-        ItemOptionMenu(
-          text: 'Registrar vehículo',
-          icon: const Icon(
-            Icons.car_repair,
-            size: 35,
-          ),
-          onClick: () {
-            context.push('/registerVehicle');
+            context.push('/registerAll');
           },
         ),
         const SizedBox(height: 15),
@@ -59,23 +70,23 @@ class OptionsMenuAdmin extends StatelessWidget {
             context.push('/showProfiles');
           },
         ),
-        const SizedBox(height: 15),
-        ItemOptionMenu(
-          text: 'Registrar orden de envio',
-          icon: const Icon(
-            Icons.archive,
-            size: 35,
-          ),
-          onClick: () {
-            context.push('/registerOrder');
-          },
-        ),
+        // const SizedBox(height: 15),
+        // ItemOptionMenu(
+        //   text: 'Registrar orden de envio',
+        //   icon: const Icon(
+        //     Icons.archive,
+        //     size: 35,
+        //   ),
+        //   onClick: () {
+        //     context.push('/registerOrder');
+        //   },
+        // ),
         const SizedBox(height: 15),
         ItemOptionMenu(
           text: 'Ver ordenes de envio',
           icon: const Icon(
             Icons.fmd_good_sharp,
-            size: 35,
+            size: 35,         
           ),
           onClick: () {
             context.push('/showShipment');

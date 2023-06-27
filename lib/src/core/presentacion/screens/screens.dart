@@ -1,3 +1,4 @@
+export 'package:stotppub/src/core/presentacion/screens/register_all.dart';
 export 'package:stotppub/src/core/presentacion/screens/incident_orders_screen.dart';
 
 export 'package:stotppub/src/core/presentacion/screens/incident_register_screen.dart';

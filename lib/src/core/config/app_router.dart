@@ -118,6 +118,11 @@ final appRouter = GoRouter(
       builder: (context, state) => const IncidentDetailScreen(),
     ),
     GoRoute(
+      path: '/registerAll',
+      name: 'registerAll',
+      builder: (context, state) => const RegisterAllScreen(),
+    ),
+    GoRoute(
       path: '/registerOrder',
       name: 'registerOrder',
       builder: (context, state) => const RegisterOrderScreen(),
