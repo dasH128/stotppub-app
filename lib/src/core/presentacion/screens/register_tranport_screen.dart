@@ -23,60 +23,45 @@ class RegisterTransportScreenState
     bool isLoadingPage = ref.watch(isLoading);
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(title: const Text('Registrar Transportista')),
         body: (isLoadingPage)
             ? const LoadingWidget()
-            : CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    floating: true,
-                    pinned: true,
-                    expandedHeight: 350,
-                    flexibleSpace: FlexibleSpaceBar(
-                      title: const Text('Registrar Transportista'),
-                      background: Image.asset(
-                        'assets/images/register_transport.jpg',
-                        fit: BoxFit.cover,
+            : SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 15),
+                      Form(
+                        key: formKey,
+                        child: Column(
+                          children: const [
+                            _FormName(),
+                            SizedBox(height: 10),
+                            _FormLastName(),
+                            SizedBox(height: 10),
+                            _FormRuc(),
+                            SizedBox(height: 10),
+                            _FormAddress(),
+                            SizedBox(height: 10),
+                            _FormNumber(),
+                            SizedBox(height: 10),
+                            _FormLicenseNumber(),
+                            SizedBox(height: 10),
+                            _FormTypeLicense(),
+                            SizedBox(height: 10),
+                            _FormEmail(),
+                            SizedBox(height: 10),
+                            _FormPassword(),
+                          ],
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 10),
+                      _ButtonRegister(ref: ref),
+                      const SizedBox(height: 20),
+                    ],
                   ),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 15),
-                          Form(
-                            key: formKey,
-                            child: Column(
-                              children: const [
-                                _FormName(),
-                                SizedBox(height: 10),
-                                _FormLastName(),
-                                SizedBox(height: 10),
-                                _FormRuc(),
-                                SizedBox(height: 10),
-                                _FormAddress(),
-                                SizedBox(height: 10),
-                                _FormNumber(),
-                                SizedBox(height: 10),
-                                _FormLicenseNumber(),
-                                SizedBox(height: 10),
-                                _FormTypeLicense(),
-                                SizedBox(height: 10),
-                                _FormEmail(),
-                                SizedBox(height: 10),
-                                _FormPassword(),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          _ButtonRegister(ref: ref),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+                ),
               ),
       ),
     );

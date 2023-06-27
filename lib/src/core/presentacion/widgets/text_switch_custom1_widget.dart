@@ -28,7 +28,7 @@ class SwitchCustom1Widget extends StatelessWidget {
         color:
             MyAppTheme.color.withOpacity(0.1), //color.primary.withOpacity(0.1),
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(width: 1),
+        border: Border.all(width: 1, color: MyAppTheme.color),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -17,63 +17,48 @@ class RegisterVehicleScreen extends ConsumerWidget {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     bool isLoadingPage = ref.watch(isLoading);
     return Scaffold(
+      appBar: AppBar(title: const Text('Registrar Vehículo')),
       body: (isLoadingPage)
           ? const LoadingWidget()
           : Builder(
               builder: (context) {
-                return CustomScrollView(
-                  slivers: [
-                    SliverAppBar(
-                      floating: true,
-                      pinned: true,
-                      expandedHeight: 350,
-                      flexibleSpace: FlexibleSpaceBar(
-                        title: const Text('Registrar Vehículo'),
-                        background: Image.asset(
-                          'assets/images/register_vehicle.jpeg',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                return SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsetsDirectional.symmetric(
+                      vertical: 15,
+                      horizontal: 15,
                     ),
-                    SliverToBoxAdapter(
-                      child: Container(
-                        padding: const EdgeInsetsDirectional.symmetric(
-                          vertical: 15,
-                          horizontal: 15,
+                    child: Column(
+                      children: [
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: const [
+                              _FormRegistartionNumber(),
+                              SizedBox(height: 10),
+                              // _FormPropertyCard(),
+                              // SizedBox(height: 10),
+                              _FormNumberOfAxes(),
+                              SizedBox(height: 10),
+                              _FormWidth(),
+                              SizedBox(height: 10),
+                              _FormLong(),
+                              SizedBox(height: 10),
+                              _FormSure(),
+                              SizedBox(height: 10),
+                              _FormSoat(),
+                              SizedBox(height: 10),
+                              _FormRefrigeration(),
+                              SizedBox(height: 10),
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          children: [
-                            Form(
-                              key: _formKey,
-                              child: Column(
-                                children: const [
-                                  _FormRegistartionNumber(),
-                                  SizedBox(height: 10),
-                                  // _FormPropertyCard(),
-                                  // SizedBox(height: 10),
-                                  _FormNumberOfAxes(),
-                                  SizedBox(height: 10),
-                                  _FormWidth(),
-                                  SizedBox(height: 10),
-                                  _FormLong(),
-                                  SizedBox(height: 10),
-                                  _FormSure(),
-                                  SizedBox(height: 10),
-                                  _FormSoat(),
-                                  SizedBox(height: 10),
-                                  _FormRefrigeration(),
-                                  SizedBox(height: 10),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            _ButtonRegister(ref: ref),
-                            const SizedBox(height: 20),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                        const SizedBox(height: 10),
+                        _ButtonRegister(ref: ref),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
                 );
               },
             ),

@@ -40,7 +40,7 @@ class TextDateCustom1Widget extends StatelessWidget {
         decoration: BoxDecoration(
             color: MyAppTheme.color
                 .withOpacity(0.1), //color.primary.withOpacity(0.1),
-            border: Border.all(color: Colors.black),
+            border: Border.all(color: MyAppTheme.color),
             borderRadius: BorderRadius.circular(15)),
         child: Row(
           children: [

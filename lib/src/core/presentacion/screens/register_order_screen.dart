@@ -50,10 +50,9 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
               pinned: true,
               expandedHeight: 350,
               flexibleSpace: FlexibleSpaceBar(
-                title: const Text('Crear Solicitud'),
-                background: Image.asset(
-                  'assets/images/register_request.jpg',
-                  fit: BoxFit.cover,
+                title: const Text(
+                  'Crear Solicitud',
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             )
@@ -88,8 +87,8 @@ class RegisterOrderScreenState extends ConsumerState<RegisterOrderScreen> {
     return Stack(
       children: [
         Container(
-          padding:
-              const EdgeInsetsDirectional.symmetric(horizontal: 15, vertical: 5),
+          padding: const EdgeInsetsDirectional.symmetric(
+              horizontal: 15, vertical: 5),
           color: Colors.red,
           child: GestureDetector(
             onTap: () async {
